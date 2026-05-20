@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 0.1.5
+
+### Patch Changes
+
+- efb1d03: feat(GRAN-20): test release
+
 ## 0.1.4
 
 ### Patch Changes
