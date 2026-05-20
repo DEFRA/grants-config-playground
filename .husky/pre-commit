@@ -1,6 +1,6 @@
 npm run git:pre-commit-hook
 
-echo "Check not pushing to main and that a changeset file exists.."
+echo "Check not commiting to main and that a changeset file exists.."
 branch="$(git symbolic-ref --short HEAD)"
 currentUser="$(git config user.name)"
 if [ "$currentUser" != "github-actions[bot]" ]; then
