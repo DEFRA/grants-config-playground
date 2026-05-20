@@ -35,32 +35,29 @@ jobs:
           npm ci
           npm test
 
-      - name: Install dependencies
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
-        run: npm ci --ignore-scripts
-
-      - name: Set user
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
-        run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
-
-      - name: Create Release Pull Request
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
-        uses: changesets/action@v1
-        with:
-          commitMode: 'github-api'
-          publish: npm run github:release
-          commit: 'Create new config version'
-          title: 'Create new config version'
-
-      - name: Build and Publish
+      - name: Build and Publish to CDP
         if: ${{ startsWith(github.event.head_commit.message, 'Create new config version') }}
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: SonarCloud Scan
-#        uses: SonarSource/sonarqube-scan-action@v5.3.1 #  (or check latest version on https://github.com/marketplace/actions/official-sonarqube-scan)
-#        continue-on-error: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #      - name: SonarCloud Scan
+      #        uses: SonarSource/sonarqube-scan-action@v5.3.1 #  (or check latest version on https://github.com/marketplace/actions/official-sonarqube-scan)
+      #        continue-on-error: true
+      #        env:
+      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Set user
+        run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
+
+      - name: Create Release or Release Pull Request
+        uses: changesets/action@v1
+        with:
+          commitMode: 'github-api'
+          publish: npm run github:release
+          commit: 'Create new config version #patch DO-NOT-CHANGE'
+          title: 'Create new config version #patch DO-NOT-CHANGE'
