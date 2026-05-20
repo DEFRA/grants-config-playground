@@ -1,0 +1,20 @@
+name: PR Title Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-title:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR title
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          echo "Validating PR title against configuration repository policy. Current title: \"$TITLE\""
+
+          if [[ ! "$TITLE" =~ \#(patch|minor|major) ]]; then
+            echo "PR title must include one of: #patch, #minor, #major"
+            exit 1
+          fi

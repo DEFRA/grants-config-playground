@@ -1,18 +1,24 @@
 import hapi from '@hapi/hapi'
 
 describe('#startServer', () => {
+  let startServerImport
   let createServerSpy
   let hapiServerSpy
-  let startServerImport
-  let createServerImport
+  let configStoreInformImportSpy
 
   beforeAll(async () => {
     vi.stubEnv('PORT', '3098')
-    createServerImport = await import('#/server.js')
     startServerImport = await import('./start-server.js')
+    const createServerImport = await import('#/server.js')
+    const configStoreInformImport =
+      await import('#/service/config-store-and-inform.js')
 
     createServerSpy = vi.spyOn(createServerImport, 'createServer')
     hapiServerSpy = vi.spyOn(hapi, 'server')
+    configStoreInformImportSpy = vi.spyOn(
+      configStoreInformImport,
+      'storePublishedConfigAndInformBroker'
+    )
   })
 
   afterAll(() => {
@@ -25,6 +31,7 @@ describe('#startServer', () => {
 
       expect(createServerSpy).toHaveBeenCalled()
       expect(hapiServerSpy).toHaveBeenCalled()
+      expect(configStoreInformImportSpy).toHaveBeenCalled()
     })
   })
 

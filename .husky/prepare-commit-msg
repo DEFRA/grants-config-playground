@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+echo "First commit shouldn't include a custom message, the prepare-commit-msg hook should read changeset file to create one."
+
+COMMIT_MSG_FILE=$1
+CHANGES_DIR=".changeset"
+
+# find first changeset file
+FILE=$(ls -t "$CHANGES_DIR"/*.md 2>/dev/null | head -n 1)
+
+# exit if none
+if [ -z "$FILE" ]; then
+  exit 0
+fi
+
+# extract summary (text after second ---)
+SUMMARY=$(awk '
+  BEGIN { count=0 }
+  /^---$/ { count++; next }
+  count>=2 { print }
+' "$FILE" | sed '/^$/d' | tr '\n' ' ')
+
+# extract bump type (patch/minor/major)
+TYPE=$(grep -Eo 'patch|minor|major' "$FILE" | head -n 1)
+
+# fallback safety
+TYPE=${TYPE:-patch}
+SUMMARY=${SUMMARY:-"grant configuration updated"}
+
+MESSAGE="${SUMMARY} #${TYPE}"
+
+# only override auto-generated messages (squash/merge safe)
+if grep -q "^#" "$COMMIT_MSG_FILE"; then
+  echo "$MESSAGE" > "$COMMIT_MSG_FILE"
+fi
