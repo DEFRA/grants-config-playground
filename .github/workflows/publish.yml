@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - CHANGELOG.md
+      - 'playground/**'
 
 permissions:
   id-token: write
@@ -32,7 +35,25 @@ jobs:
           npm ci
           npm test
 
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Set user
+        run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
+
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        with:
+          commitMode: 'github-api'
+          publish: npm run github:release
+          commit: 'Create new config version'
+          title: 'Create new config version'
+
       - name: Build and Publish
+        if: >
+          github.event_name == 'pull_request' &&
+          github.head_ref == 'changeset-release/main' &&
+          github.base_ref == 'main'
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
