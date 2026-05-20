@@ -42,6 +42,9 @@ jobs:
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create Release Pull Request
+        if: >
+          github.event_name == 'pull_request' &&
+          github.head_ref != 'changeset-release/main'
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
@@ -52,8 +55,7 @@ jobs:
       - name: Build and Publish
         if: >
           github.event_name == 'pull_request' &&
-          github.head_ref == 'changeset-release/main' &&
-          github.base_ref == 'main'
+          github.head_ref == 'changeset-release/main'
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
