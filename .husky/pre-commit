@@ -1,6 +1,6 @@
 npm run git:pre-commit-hook
 
-# Check not pushing to main and that a changeset created
+echo "Check not pushing to main and that a changeset file exists.."
 branch="$(git symbolic-ref --short HEAD)"
 currentUser="$(git config user.name)"
 if [ "$currentUser" != "github-actions[bot]" ]; then
@@ -12,5 +12,3 @@ if [ "$currentUser" != "github-actions[bot]" ]; then
         compgen -G ".changeset/*-*-*.md" || (echo ❌ Make sure you have added a changeset file, run: npm run version && exit 1)
     fi
 fi
-
-echo "TEST pre-commit finishes"

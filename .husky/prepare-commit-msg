@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "TEST prepare-commit-msg starts"
-
 COMMIT_MSG_FILE=$1
 CHANGES_DIR=".changeset"
 
@@ -25,13 +23,11 @@ TYPE=$(grep -Eo 'patch|minor|major' "$FILE" | head -n 1)
 
 # fallback safety
 TYPE=${TYPE:-patch}
-SUMMARY=${SUMMARY:-"update changes"}
+SUMMARY=${SUMMARY:-"grant configuration updated"}
 
-MESSAGE="release(${TYPE}): ${SUMMARY}"
+MESSAGE="${SUMMARY} #${TYPE}"
 
 # only override auto-generated messages (squash/merge safe)
 if grep -q "^#" "$COMMIT_MSG_FILE"; then
   echo "$MESSAGE" > "$COMMIT_MSG_FILE"
 fi
-
-echo "TEST prepare-commit-msg finishes"
