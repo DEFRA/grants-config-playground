@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "TEST prepare-commit-msg starts"
+
 COMMIT_MSG_FILE=$1
 CHANGES_DIR=".changeset"
 
@@ -31,3 +33,5 @@ MESSAGE="release(${TYPE}): ${SUMMARY}"
 if grep -q "^#" "$COMMIT_MSG_FILE"; then
   echo "$MESSAGE" > "$COMMIT_MSG_FILE"
 fi
+
+echo "TEST prepare-commit-msg finishes"
