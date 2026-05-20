@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 0.1.4
+
+### Patch Changes
+
+- 0d873ff: test release and error when forgetting to create changeset
+
 ## 0.1.3
 
 ### Patch Changes
