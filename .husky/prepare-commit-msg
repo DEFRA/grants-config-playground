@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "First commit shouldn't include a custom message, the prepare-commit-msg hook should read changeset file to create one."
+
 COMMIT_MSG_FILE=$1
 CHANGES_DIR=".changeset"
 
