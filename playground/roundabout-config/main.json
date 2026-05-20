@@ -1,4 +1,4 @@
 {
-  "seats": false,
-  "speed": "fast"
+  "seats": true,
+  "speed": "slow"
 }
