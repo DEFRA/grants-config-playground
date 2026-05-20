@@ -51,10 +51,21 @@ jobs:
       - name: Set user
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
+      - name: Create release message
+        run: |
+          msg="${{ github.event.head_commit.message }}"
+          if [[ "$msg" == *"#minor"* ]]; then
+            echo "RELEASE_MSG=Create new config version #minor" >> $GITHUB_ENV
+          elif [[ "$msg" == *"#major"* ]]; then
+            echo "RELEASE_MSG=Create new config version #major" >> $GITHUB_ENV
+          else
+            echo "RELEASE_MSG=Create new config version #patch" >> $GITHUB_ENV
+          fi
+
       - name: Create Release or Pull Request
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
           publish: npm run github:release
-          commit: 'Create new config version #patch DO-NOT-CHANGE'
-          title: 'Create new config version #patch'
+          commit: ${{ env.RELEASE_MSG }}
+          title: ${{ env.RELEASE_MSG }}
