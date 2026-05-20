@@ -7,6 +7,13 @@
   "engines": {
     "node": ">=24"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/grants-config-playground.git"
+  },
   "scripts": {
     "dev": "AWS_EMF_ENVIRONMENT=Local NODE_ENV=development npm run server:watch",
     "dev:debug": "AWS_EMF_ENVIRONMENT=Local NODE_ENV=development npm run server:debug",
@@ -53,6 +60,7 @@
     "undici": "7.24.8"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
     "@vitest/coverage-v8": "4.1.4",
     "eslint": "9.39.2",
@@ -62,5 +70,26 @@
     "prettier": "3.8.2",
     "vitest": "4.1.4",
     "vitest-fetch-mock": "0.4.5"
+  },
+  "release-it": {
+    "npm": {
+      "publish": false
+    },
+    "github": {
+      "release": true,
+      "releaseName": "${version}",
+      "releaseNotes": "echo ''"
+    },
+    "git": {
+      "commitMessage": "Tagged grants-config-playground ${version}",
+      "tagName": "${version}",
+      "requireCleanWorkingDir": false,
+      "commitArgs": [
+        "--no-verify"
+      ]
+    }
+  },
+  "bin": {
+    "cdp-github-release": "ci/release-it.sh"
   }
 }
