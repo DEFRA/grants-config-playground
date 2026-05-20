@@ -23,7 +23,6 @@
     "start": "NODE_ENV=production node . --env-file-if-exists=.env",
     "test": "TZ=UTC vitest run --coverage",
     "test:watch": "TZ=UTC vitest",
-    "prepare": "husky install",
     "github:release": "npx cdp-github-release grant-config-playground",
     "version:changed": "changeset version",
     "version": "changeset"
