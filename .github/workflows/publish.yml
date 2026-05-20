@@ -36,15 +36,15 @@ jobs:
           npm test
 
       - name: Install dependencies
-        if: !startsWith(github.event.head_commit.message, 'Create new config version')
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         run: npm ci --ignore-scripts
 
       - name: Set user
-        if: !startsWith(github.event.head_commit.message, 'Create new config version')
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create Release Pull Request
-        if: !startsWith(github.event.head_commit.message, 'Create new config version')
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
@@ -53,7 +53,7 @@ jobs:
           title: 'Create new config version'
 
       - name: Build and Publish
-        if: startsWith(github.event.head_commit.message, 'Create new config version')
+        if: ${{ startsWith(github.event.head_commit.message, 'Create new config version') }}
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
