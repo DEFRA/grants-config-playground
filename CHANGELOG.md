@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 0.1.7
+
+### Patch Changes
+
+- dbd423a: feat(GRAN-20) test release
+
 ## 0.1.6
 
 ### Patch Changes
