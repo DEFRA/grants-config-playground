@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 1.0.1
+
+### Patch Changes
+
+- 6d08512: feat(GRAN-20) change swing config
+
 ## 1.0.0
 
 ### Major Changes
