@@ -1,5 +1,20 @@
 # grants-config-playground
 
+## 2.0.0
+
+### Major Changes
+
+- 47274a3: feat(GRAN-20): having a bad day, decided I need a major change
+
+### Minor Changes
+
+- 47274a3: feat(GRAN-20): day got worse, actually need a minor change
+- 47274a3: feat(GRAN-20): first intend on making a minor change
+
+### Patch Changes
+
+- 47274a3: feat(GRAN-20): changed my mind, now want a patch
+
 ## 1.1.0
 
 ### Minor Changes
