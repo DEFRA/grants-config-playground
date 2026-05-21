@@ -1,4 +1,5 @@
 {
   "height": "standard",
-  "speed": "slow"
+  "speed": "slow",
+  "foo": "bar"
 }
