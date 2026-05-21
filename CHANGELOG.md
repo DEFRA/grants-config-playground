@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 1.0.0
+
+### Major Changes
+
+- e450b8c: feat(GRAN-20): removed swings config path
+
 ## 0.2.0
 
 ### Minor Changes
