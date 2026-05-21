@@ -1,5 +1,15 @@
 # grants-config-playground
 
+## 1.1.0
+
+### Minor Changes
+
+- 471fd5d: feat(GRAN-20) minor
+
+### Patch Changes
+
+- 471fd5d: feat(GRAN-20) patch
+
 ## 1.0.1
 
 ### Patch Changes
