@@ -54,10 +54,10 @@ jobs:
       - name: Create release message
         run: |
           msg="${{ github.event.head_commit.message }}"
-          if [[ "$msg" == *"#minor"* ]]; then
-            echo "RELEASE_MSG=Create new config version #minor" >> $GITHUB_ENV
-          elif [[ "$msg" == *"#major"* ]]; then
+          if [[ "$msg" == *"#major"* ]]; then
             echo "RELEASE_MSG=Create new config version #major" >> $GITHUB_ENV
+          elif [[ "$msg" == *"#minor"* ]]; then
+            echo "RELEASE_MSG=Create new config version #minor" >> $GITHUB_ENV
           else
             echo "RELEASE_MSG=Create new config version #patch" >> $GITHUB_ENV
           fi
