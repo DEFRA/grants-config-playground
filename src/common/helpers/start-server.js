@@ -1,6 +1,6 @@
 import { config } from '#/config.js'
 import { createServer } from '#/server.js'
-import { storePublishedConfigAndInformBroker } from '#/service/config-store-and-inform.js'
+import { storeConfigVersionAndInformBroker } from '#/service/config-store-and-inform.js'
 
 export async function startServer() {
   const server = await createServer()
@@ -11,7 +11,7 @@ export async function startServer() {
     `Access your backend on http://localhost:${config.get('port')}`
   )
 
-  await storePublishedConfigAndInformBroker(server.logger.child({}))
+  await storeConfigVersionAndInformBroker(server.logger.child({}))
 
   return server
 }

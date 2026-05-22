@@ -17,7 +17,7 @@ describe('#startServer', () => {
     hapiServerSpy = vi.spyOn(hapi, 'server')
     configStoreInformImportSpy = vi.spyOn(
       configStoreInformImport,
-      'storePublishedConfigAndInformBroker'
+      'storeConfigVersionAndInformBroker'
     )
   })
 

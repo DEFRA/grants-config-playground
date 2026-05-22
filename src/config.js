@@ -87,6 +87,35 @@ export const config = convict({
       default: 'x-cdp-request-id',
       env: 'TRACING_HEADER'
     }
+  },
+  aws: {
+    endpointUrl: {
+      doc: 'AWS Endpoint URL used for LocalStack',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'AWS_ENDPOINT_URL'
+    },
+    region: {
+      doc: 'AWS Region',
+      format: String,
+      default: 'eu-west-2',
+      env: 'AWS_REGION'
+    },
+    s3: {
+      bucketName: {
+        doc: 'Configs S3 bucket name',
+        format: String,
+        default: 'configs-bucket',
+        env: 'CONFIG_BUCKET_NAME'
+      },
+      forcePathStyle: {
+        doc: 'Force path style on S3 bucket',
+        format: Boolean,
+        default: true,
+        env: 'FORCE_PATH_STYLE'
+      }
+    }
   }
 })
 

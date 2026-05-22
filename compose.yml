@@ -12,14 +12,14 @@ services:
     volumes:
       - ./compose/floci/start.d:/etc/floci/init/start.d:ro
     networks:
-      - cdp-tenant
+      - grants-framework-playgound
 
   redis:
     image: redis:7.2.3-alpine3.18
     ports:
       - '6379:6379'
     networks:
-      - cdp-tenant
+      - grants-framework-playgound
 
   ################################################################################
 
@@ -40,14 +40,16 @@ services:
       PORT: 3001
       NODE_ENV: development
     networks:
-      - cdp-tenant
+      - grants-framework-playgound
     volumes:
       - ./src:/home/node/src
       - ./package.json:/home/node/package.json
+      - ./.env:/home/node/.env
+      - ./playground:/home/node/playground
 
 ################################################################################
 
 networks:
-  cdp-tenant:
+  grants-framework-playgound:
     driver: bridge
-    name: cdp-tenant
+    name: grants-framework-playgound
