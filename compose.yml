@@ -44,12 +44,11 @@ services:
     volumes:
       - ./src:/home/node/src
       - ./package.json:/home/node/package.json
-      - ./.env:/home/node/.env
-      - ./playground:/home/node/playground
+      - ./configurations:/home/node/configurations
 
 ################################################################################
 
 networks:
   grants-framework-playgound:
-    driver: bridge
     name: grants-framework-playgound
+    external: true

@@ -14,8 +14,7 @@ EXPOSE ${PORT} ${PORT_DEBUG}
 COPY --chown=node:node package*.json ./
 RUN npm ci
 COPY --chown=node:node ./src ./src
-COPY --chown=node:node ./.env ./.env
-COPY --chown=node:node ./playground ./playground
+COPY --chown=node:node configurations/configurations ./configurations
 
 CMD [ "npm", "run", "docker:dev" ]
 
@@ -31,8 +30,7 @@ USER node
 
 COPY --from=development /home/node/package*.json ./
 COPY --from=development /home/node/src ./src/
-COPY --from=development /home/node/.env ./
-COPY --from=development /home/node/playground ./playground/
+COPY --from=development /home/node/configurations ./configurations/
 
 RUN npm ci --omit=dev
 

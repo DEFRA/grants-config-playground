@@ -42,9 +42,7 @@ describe('s3-interactions', () => {
         })
       )
       expect(result).toEqual(mockPutObjectResponse)
-      expect(mockLogger.info).toHaveBeenCalledWith(
-        `Uploaded document: ${key}, ETag: ${mockPutObjectResponse.ETag}`
-      )
+      expect(mockLogger.info).toHaveBeenCalledWith(`Uploaded document: ${key}, ETag: ${mockPutObjectResponse.ETag}`)
     })
 
     it('should throw an error if the upload fails', async () => {
@@ -56,9 +54,7 @@ describe('s3-interactions', () => {
 
       createS3Client.mockReturnValueOnce(mockS3Client)
 
-      await expect(uploadBlob(mockLogger, key, body)).rejects.toThrow(
-        'Upload failed'
-      )
+      await expect(uploadBlob(mockLogger, key, body)).rejects.toThrow('Upload failed')
 
       expect(createS3Client).not.toHaveBeenCalled()
       expect(mockS3Client.send).toHaveBeenCalledWith(

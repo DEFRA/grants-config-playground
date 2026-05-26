@@ -33,16 +33,7 @@ export const config = convict({
   },
   cdpEnvironment: {
     doc: 'The CDP environment the app is running in. With the addition of "local" for local development',
-    format: [
-      'local',
-      'infra-dev',
-      'management',
-      'dev',
-      'test',
-      'perf-test',
-      'ext-test',
-      'prod'
-    ],
+    format: ['local', 'infra-dev', 'management', 'dev', 'test', 'perf-test', 'ext-test', 'prod'],
     default: 'local',
     env: 'ENVIRONMENT'
   },
@@ -115,6 +106,30 @@ export const config = convict({
         default: true,
         env: 'FORCE_PATH_STYLE'
       }
+    }
+  },
+  configBroker: {
+    auth: {
+      token: {
+        doc: 'Bearer token for service-to-service authentication',
+        format: String,
+        default: '',
+        env: 'GRANTS_CONFIG_BROKER_AUTH_TOKEN',
+        sensitive: true
+      },
+      encryptionKey: {
+        doc: 'Encryption key for decrypting bearer token',
+        format: String,
+        default: '',
+        env: 'GRANTS_CONFIG_BROKER_ENCRYPTION_KEY',
+        sensitive: true
+      }
+    },
+    apiEndpoint: {
+      doc: 'Endpoint for the config broker API',
+      format: String,
+      default: 'http://localhost:3001',
+      env: 'GRANTS_CONFIG_BROKER_API_ENDPOINT'
     }
   }
 })
