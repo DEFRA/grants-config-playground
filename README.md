@@ -2,6 +2,7 @@
 
 Core delivery platform Node.js Backend Template.
 
+- [Adding Grant Config](#adding-grant-config)
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
 - [Local development](#local-development)
@@ -24,6 +25,10 @@ Core delivery platform Node.js Backend Template.
   - [SonarCloud](#sonarcloud)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
+
+## Adding Grant Config
+
+TODO BH make clear all configurations versioned together
 
 ## Requirements
 

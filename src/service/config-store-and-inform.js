@@ -3,33 +3,41 @@ import { config } from '#/config.js'
 import { uploadBlob } from '#/storage/s3-interactions.js'
 import { createApiHeadersForConfigBroker } from '#/common/helpers/broker/broker-auth-helper.js'
 
+const configsDirectory = 'configurations'
+
 export const storeConfigVersionAndInformBroker = async (logger) => {
-  // TODO BH add to README, make clear versioned together
-  const configsDirectory = 'configurations'
-  if (!folderExists(configsDirectory)) {
-    logger.warn(`Config folder '${configsDirectory}' not found, so performing the file upload`)
+  if (!configsDirectoryExists(configsDirectory, logger)) {
     return
   }
 
-  const configs = getConfigsAtNewVersion(configsDirectory)
+  const configsAtServiceVersion = constructConfigsAtServiceVersion(configsDirectory)
 
-  const newConfigVersion = !(await configVersionExists(configs, logger))
-  if (newConfigVersion) {
-    await storeConfigAtNewVersion(configs, logger)
+  if (await configNotAlreadyStored(configsAtServiceVersion, logger)) {
+    await storeConfigAtServiceVersion(configsAtServiceVersion, logger)
   }
 
-  await notifyConfigBrokerNewVersionAvailable(configs, logger)
+  await notifyConfigBrokerServiceVersionAvailable(configsAtServiceVersion, logger)
 }
 
-const folderExists = (configsDirectory) => existsSync(configsDirectory) && lstatSync(configsDirectory).isDirectory()
+const configsDirectoryExists = (configsDirectory, logger) => {
+  const configsDirectoryExists = existsSync(configsDirectory) && lstatSync(configsDirectory).isDirectory()
 
-const getConfigsAtNewVersion = (configsDirectory) => {
+  if (!configsDirectoryExists) {
+    logger.warn(`Config folder '${configsDirectory}' not found, so performing the file upload`)
+  }
+
+  return configsDirectoryExists
+}
+
+const constructConfigsAtServiceVersion = (configsDirectory) => {
   const version = config.get('serviceVersion')
 
+  // all top-level directories are considered separate grant configurations
   const configDirs = readdirSync(configsDirectory, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name)
 
+  // iterate each grant configuration, collecting: grant, version and files
   return configDirs.map((config) => {
     const files = readdirSync(`${configsDirectory}/${config}`, { withFileTypes: true, recursive: true })
       .filter((dirent) => dirent.isFile())
@@ -41,54 +49,58 @@ const getConfigsAtNewVersion = (configsDirectory) => {
           : `${dirent.name}`
 
         const localPath = `${configPath}${direntWithoutConfigPath}`
-        const s3Key = `${config}/${version}${direntWithoutConfigPath}`
-        return [localPath, s3Key]
+        const s3Path = `${config}/${version}${direntWithoutConfigPath}`
+        return [localPath, s3Path]
       })
 
     return { grant: config, version, files }
   })
 }
 
-const configVersionExists = async (configs, logger) => {
-  // logger.info('config version already exists')
+const configNotAlreadyStored = async (configsAtServiceVersion, logger) => {
   // Check if any configs have: $config/x.x.x/metadata.json
-  return false
+  return true
 }
 
-const storeConfigAtNewVersion = async (configs, logger) => {
-  const allConfigFiles = configs.map((config) => config.files).flat()
-
-  for (const [localPath, s3Key] of allConfigFiles) {
-    logger.info(`Uploading ${s3Key} to S3`)
-    await uploadBlob(logger, s3Key, readFileSync(localPath, 'utf8'))
+const storeConfigAtServiceVersion = async (configsAtServiceVersion, logger) => {
+  // upload all files across all grant configurations at once
+  const allConfigFiles = configsAtServiceVersion.map((config) => config.files).flat()
+  for (const [localPath, s3Path] of allConfigFiles) {
+    logger.info(`Uploading '${s3Path}' to S3`)
+    await uploadBlob(logger, s3Path, readFileSync(localPath, 'utf8'))
   }
 
-  logger.info(`successfully uploaded '${allConfigFiles.length}' files across '${configs.length}' configs`)
+  logger.info(
+    `successfully uploaded '${allConfigFiles.length}' files across '${configsAtServiceVersion.length}' configs`
+  )
 }
 
-const notifyConfigBrokerNewVersionAvailable = async (configs, logger) => {
+const notifyConfigBrokerServiceVersionAvailable = async (configsAtServiceVersion, logger) => {
   const configBrokerEndpoint = config.get('configBroker.apiEndpoint')
-  for (const c of configs) {
-    await callReleaseConfigEndpoint(configBrokerEndpoint, c, logger)
+
+  // iterate each grant configuration, notify config available at current service version
+  for (const configAtServiceVersion of configsAtServiceVersion) {
+    await callReleaseConfigEndpoint(configBrokerEndpoint, configAtServiceVersion, logger)
   }
 }
 
-const callReleaseConfigEndpoint = async (configBrokerEndpoint, { grant, version, files }, logger) => {
+const callReleaseConfigEndpoint = async (configBrokerEndpoint, configAtServiceVersion, logger) => {
   if (!configBrokerEndpoint?.length) {
     logger.warn(`Config broker endpoint not set, so skipping release config call`)
     return
   }
 
   const serviceName = config.get('serviceName')
-  const s3Keys = files.map(([_, s3Key]) => s3Key)
+  const { grant, version, files } = configAtServiceVersion
+  // files is and array of tuples, we only want the S3 paths here
+  const s3Paths = files.map(([_, s3Path]) => s3Path)
 
-  // TODO BH hardcode status for now
   const payload = {
     grant,
     repository: serviceName,
     version,
-    files: s3Keys,
-    status: 'draft'
+    files: s3Paths,
+    status: 'draft' // hardcode status for now
   }
 
   const url = new URL(`/api/release-config`, configBrokerEndpoint)
