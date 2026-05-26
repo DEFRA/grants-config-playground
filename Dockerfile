@@ -14,7 +14,7 @@ EXPOSE ${PORT} ${PORT_DEBUG}
 COPY --chown=node:node package*.json ./
 RUN npm ci
 COPY --chown=node:node ./src ./src
-COPY --chown=node:node configurations/configurations ./configurations
+COPY --chown=node:node ./configurations ./configurations
 
 CMD [ "npm", "run", "docker:dev" ]
 

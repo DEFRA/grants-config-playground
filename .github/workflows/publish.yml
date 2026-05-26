@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - CHANGELOG.md
-      - '../../config-directories/playground/**'
+      - 'configurations/**'
 
 permissions:
   id-token: write

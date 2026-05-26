@@ -4,7 +4,6 @@ import { uploadBlob } from '#/storage/s3-interactions.js'
 import { createApiHeadersForConfigBroker } from '#/common/helpers/broker/broker-auth-helper.js'
 
 export const storeConfigVersionAndInformBroker = async (logger) => {
-  console.log(`BH SHOULDN'T GET HERE`)
   // TODO BH add to README, make clear versioned together
   const configsDirectory = 'configurations'
   if (!folderExists(configsDirectory)) {
@@ -50,10 +49,9 @@ const getConfigsAtNewVersion = (configsDirectory) => {
   })
 }
 
-const configVersionExists = async (newConfigs, logger) => {
-  // logger.error('failed to verify if config version already exists')
+const configVersionExists = async (configs, logger) => {
   // logger.info('config version already exists')
-  // Check if this exists: playground/2.0.0/metadata.json
+  // Check if any configs have: $config/x.x.x/metadata.json
   return false
 }
 
