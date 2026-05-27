@@ -90,14 +90,12 @@ const callReleaseConfigEndpoint = async (configBrokerEndpoint, configAtServiceVe
     return
   }
 
-  const serviceName = config.get('serviceName')
   const { grant, version, files } = configAtServiceVersion
   // files is and array of tuples, we only want the S3 paths here
   const s3Paths = files.map(([_, s3Path]) => s3Path)
 
   const payload = {
     grant,
-    repository: serviceName,
     version,
     files: s3Paths,
     status: 'draft' // hardcode status for now
