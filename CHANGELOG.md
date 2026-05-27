@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 2.0.3
+
+### Patch Changes
+
+- eea4fb7: feat(GRAN-20): remove nested config
+
 ## 2.0.2
 
 ### Patch Changes
