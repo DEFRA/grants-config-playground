@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 2.0.1
+
+### Patch Changes
+
+- cf1edb0: feat(GRAN-20): non-config change version, configure service for local running, also add playground config s3 upload
+
 ## 2.0.0
 
 ### Major Changes
