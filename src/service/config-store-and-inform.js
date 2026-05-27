@@ -117,7 +117,6 @@ const callReleaseConfigEndpoint = async (configBrokerEndpoint, configAtServiceVe
     } else {
       logger.info(`successfully notified the config broker about '${grant}' at version '${version}'`)
     }
-    return response.json()
   } catch (err) {
     logger.error('call to release config failed', err)
   }
