@@ -23,7 +23,7 @@ const configsDirectoryExists = (configsDirectory, logger) => {
   const configsDirectoryExists = existsSync(configsDirectory) && lstatSync(configsDirectory).isDirectory()
 
   if (!configsDirectoryExists) {
-    logger.warn(`Config folder '${configsDirectory}' not found, so performing the file upload`)
+    logger.warn(`config folder '${configsDirectory}' not found, so performing the file upload`)
   }
 
   return configsDirectoryExists
@@ -66,7 +66,7 @@ const storeConfigAtServiceVersion = async (configsAtServiceVersion, logger) => {
   // upload all files across all grant configurations at once
   const allConfigFiles = configsAtServiceVersion.map((config) => config.files).flat()
   for (const [localPath, s3Path] of allConfigFiles) {
-    logger.info(`Uploading '${s3Path}' to S3`)
+    logger.info(`uploading '${s3Path}' to S3`)
     await uploadBlob(logger, s3Path, readFileSync(localPath, 'utf8'))
   }
 
@@ -86,7 +86,7 @@ const notifyConfigBrokerServiceVersionAvailable = async (configsAtServiceVersion
 
 const callReleaseConfigEndpoint = async (configBrokerEndpoint, configAtServiceVersion, logger) => {
   if (!configBrokerEndpoint?.length) {
-    logger.warn(`Config broker endpoint not set, so skipping release config call`)
+    logger.warn(`config broker endpoint not set, so skipping release config call`)
     return
   }
 
@@ -115,12 +115,12 @@ const callReleaseConfigEndpoint = async (configBrokerEndpoint, configAtServiceVe
     })
 
     if (!response.ok) {
-      logger.error(`Call to release config failed with status '${response.status}' and text '${response.statusText}'`)
+      logger.error(`call to release config failed with status '${response.status}' and text '${response.statusText}'`)
     } else {
-      logger.info(`successfully notified the config broker about '${grant}' at version ${version}`)
+      logger.info(`successfully notified the config broker about '${grant}' at version '${version}'`)
     }
     return response.json()
   } catch (err) {
-    logger.error('Call to release config failed', err)
+    logger.error('call to release config failed', err)
   }
 }
