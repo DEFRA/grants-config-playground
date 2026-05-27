@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 2.0.2
+
+### Patch Changes
+
+- 73c21d7: feat(GRAN-20): test nested config, also removed repository from release-config payload
+
 ## 2.0.1
 
 ### Patch Changes
