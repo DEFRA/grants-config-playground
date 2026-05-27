@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 2.1.0
+
+### Minor Changes
+
+- a127558: feat(GRAN-20): add new grant config
+
 ## 2.0.3
 
 ### Patch Changes
