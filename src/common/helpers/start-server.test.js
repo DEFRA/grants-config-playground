@@ -10,15 +10,13 @@ describe('#startServer', () => {
     vi.stubEnv('PORT', '3098')
     startServerImport = await import('./start-server.js')
     const createServerImport = await import('#/server.js')
-    const configStoreInformImport =
-      await import('#/service/config-store-and-inform.js')
+    const configStoreInformImport = await import('#/service/config-store-and-inform.js')
 
     createServerSpy = vi.spyOn(createServerImport, 'createServer')
     hapiServerSpy = vi.spyOn(hapi, 'server')
-    configStoreInformImportSpy = vi.spyOn(
-      configStoreInformImport,
-      'storePublishedConfigAndInformBroker'
-    )
+    configStoreInformImportSpy = vi
+      .spyOn(configStoreInformImport, 'storeConfigVersionAndInformBroker')
+      .mockImplementation(async () => {})
   })
 
   afterAll(() => {
@@ -39,9 +37,7 @@ describe('#startServer', () => {
     test('Should log failed startup message', async () => {
       createServerSpy.mockRejectedValue(new Error('Server failed to start'))
 
-      await expect(startServerImport.startServer()).rejects.toThrow(
-        'Server failed to start'
-      )
+      await expect(startServerImport.startServer()).rejects.toThrow('Server failed to start')
     })
   })
 })

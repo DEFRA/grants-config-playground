@@ -33,16 +33,7 @@ export const config = convict({
   },
   cdpEnvironment: {
     doc: 'The CDP environment the app is running in. With the addition of "local" for local development',
-    format: [
-      'local',
-      'infra-dev',
-      'management',
-      'dev',
-      'test',
-      'perf-test',
-      'ext-test',
-      'prod'
-    ],
+    format: ['local', 'infra-dev', 'management', 'dev', 'test', 'perf-test', 'ext-test', 'prod'],
     default: 'local',
     env: 'ENVIRONMENT'
   },
@@ -86,6 +77,59 @@ export const config = convict({
       format: String,
       default: 'x-cdp-request-id',
       env: 'TRACING_HEADER'
+    }
+  },
+  aws: {
+    endpointUrl: {
+      doc: 'AWS Endpoint URL used for LocalStack',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'AWS_ENDPOINT_URL'
+    },
+    region: {
+      doc: 'AWS Region',
+      format: String,
+      default: 'eu-west-2',
+      env: 'AWS_REGION'
+    },
+    s3: {
+      bucketName: {
+        doc: 'Configs S3 bucket name',
+        format: String,
+        default: 'configs-bucket',
+        env: 'CONFIG_BUCKET_NAME'
+      },
+      forcePathStyle: {
+        doc: 'Force path style on S3 bucket',
+        format: Boolean,
+        default: true,
+        env: 'FORCE_PATH_STYLE'
+      }
+    }
+  },
+  configBroker: {
+    auth: {
+      token: {
+        doc: 'Bearer token for service-to-service authentication',
+        format: String,
+        default: '',
+        env: 'GRANTS_CONFIG_BROKER_AUTH_TOKEN',
+        sensitive: true
+      },
+      encryptionKey: {
+        doc: 'Encryption key for decrypting bearer token',
+        format: String,
+        default: '',
+        env: 'GRANTS_CONFIG_BROKER_ENCRYPTION_KEY',
+        sensitive: true
+      }
+    },
+    apiEndpoint: {
+      doc: 'Endpoint for the config broker API',
+      format: String,
+      default: 'http://localhost:3001',
+      env: 'GRANTS_CONFIG_BROKER_API_ENDPOINT'
     }
   }
 })
