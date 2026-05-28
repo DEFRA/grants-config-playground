@@ -1,6 +1,6 @@
 import { config } from '#/config.js'
 import { createServer } from '#/server.js'
-import { storeConfigVersionAndInformBroker } from '#/service/config-store-and-inform.js'
+import { storeConfigVersionAndInformBroker } from '@defra/grants-config-utils'
 
 export async function startServer() {
   const server = await createServer()
