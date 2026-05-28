@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.1.0
+
+### Minor Changes
+
+- 08f0fd4: feat(GRAN-20): use @defra/grants-config-utils library
+
 ## 3.0.1
 
 ### Patch Changes
