@@ -52,15 +52,45 @@ jobs:
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create release message
+        shell: bash
         run: |
-          msg="${{ github.event.head_commit.message }}"
-          if [[ "$msg" == *"#major"* ]]; then
-            echo "RELEASE_MSG=Create new config version #major" >> $GITHUB_ENV
-          elif [[ "$msg" == *"#minor"* ]]; then
-            echo "RELEASE_MSG=Create new config version #minor" >> $GITHUB_ENV
-          else
-            echo "RELEASE_MSG=Create new config version #patch" >> $GITHUB_ENV
-          fi
+          # default to patch version
+          version="patch"
+
+          # read all changeset files
+          for file in .changeset/*-*-*.md; do
+
+            # skip if not file
+            [ -f "$file" ] || continue
+
+            # extract only the version block
+            versionblock=$(awk '
+              BEGIN { inside=0 }
+              /^---$/ {
+                if (inside == 0) {
+                  inside=1
+                  next
+                } else {
+                  exit
+                }
+              }
+              inside == 1 { print }
+            ' "$file")
+
+            # major wins immediately
+            if echo "$versionblock" | grep -Eq ':\s*major'; then
+              version="major"
+              break
+            fi
+
+            # minor overrides patch
+            if echo "$versionblock" | grep -Eq ':\s*minor'; then
+              version="minor"
+            fi
+          done
+
+          # store as environment variable for later use
+          echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
       - name: Create Release or Pull Request
         uses: changesets/action@v1
