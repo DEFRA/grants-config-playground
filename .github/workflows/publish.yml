@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - CHANGELOG.md
-      - 'configurations/**'
 
 permissions:
   id-token: write
