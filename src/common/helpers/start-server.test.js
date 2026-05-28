@@ -10,7 +10,7 @@ describe('#startServer', () => {
     vi.stubEnv('PORT', '3098')
     startServerImport = await import('./start-server.js')
     const createServerImport = await import('#/server.js')
-    const configStoreInformImport = await import('#/service/config-store-and-inform.js')
+    const configStoreInformImport = await import('@defra/grants-config-utils')
 
     createServerSpy = vi.spyOn(createServerImport, 'createServer')
     hapiServerSpy = vi.spyOn(hapi, 'server')
