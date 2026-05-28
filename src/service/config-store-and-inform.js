@@ -1,20 +1,22 @@
 import { readFileSync, existsSync, lstatSync, readdirSync } from 'node:fs'
 import { config } from '#/config.js'
-import { uploadBlob } from '#/storage/s3-interactions.js'
+import { listFiles, uploadBlob } from '#/storage/s3-interactions.js'
 import { createApiHeadersForConfigBroker } from '#/common/helpers/broker/broker-auth-helper.js'
 
 const configsDirectory = 'configurations'
 
 export const storeConfigVersionAndInformBroker = async (logger) => {
   if (!configsDirectoryExists(configsDirectory, logger)) {
-    return
+    return // exit early, configurations directory not found
   }
 
   const configsAtServiceVersion = constructConfigsAtServiceVersion(configsDirectory)
 
-  if (await configNotAlreadyStored(configsAtServiceVersion, logger)) {
-    await storeConfigAtServiceVersion(configsAtServiceVersion, logger)
+  if (await configAlreadyPublished(configsAtServiceVersion, logger)) {
+    return // exit early, broker already published config
   }
+
+  await storeConfigAtServiceVersion(configsAtServiceVersion, logger)
 
   await notifyConfigBrokerServiceVersionAvailable(configsAtServiceVersion, logger)
 }
@@ -57,9 +59,15 @@ const constructConfigsAtServiceVersion = (configsDirectory) => {
   })
 }
 
-const configNotAlreadyStored = async (configsAtServiceVersion, logger) => {
-  // Check if any configs have: $config/x.x.x/metadata.json
-  return true
+const configAlreadyPublished = async (configsAtServiceVersion, logger) => {
+  for (const { grant, version } of configsAtServiceVersion) {
+    const files = await listFiles(logger, `${grant}/${version}/metadata.json`)
+    if (files.length > 0) {
+      logger.warn(`grant config '${grant}' at version '${version}' already published, not safe to store`)
+      return true
+    }
+  }
+  return false
 }
 
 const storeConfigAtServiceVersion = async (configsAtServiceVersion, logger) => {
