@@ -1,5 +1,15 @@
 # grants-config-playground
 
+## 3.0.0
+
+### Major Changes
+
+- d19bf96: feat(GRAN-20): removed test grant config
+
+### Minor Changes
+
+- d19bf96: feat(GRAN-20): removed field from config file
+
 ## 2.1.1
 
 ### Patch Changes
