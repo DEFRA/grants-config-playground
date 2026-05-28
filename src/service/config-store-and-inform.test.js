@@ -1,6 +1,6 @@
 import { storeConfigVersionAndInformBroker } from './config-store-and-inform.js'
 import { readFileSync, existsSync, lstatSync, readdirSync } from 'node:fs'
-import { uploadBlob } from '#/storage/s3-interactions.js'
+import { listFiles, uploadBlob } from '#/storage/s3-interactions.js'
 
 vi.mock('node:fs', () => ({
   existsSync: vi.fn(),
@@ -23,6 +23,7 @@ vi.mock('#/config.js', () => ({
 }))
 
 vi.mock('#/storage/s3-interactions.js', () => ({
+  listFiles: vi.fn(() => []),
   uploadBlob: vi.fn()
 }))
 
@@ -70,12 +71,9 @@ describe('storeConfigVersionAndInformBroker', () => {
       "config folder 'configurations' not found, so performing the file upload"
     )
     expect(readFileSync).not.toHaveBeenCalled()
+    expect(listFiles).not.toHaveBeenCalled()
     expect(uploadBlob).not.toHaveBeenCalled()
     expect(fetch).not.toHaveBeenCalled()
-  })
-
-  it.skip('should still inform config broker but skip storing when already exists', async () => {
-    // TODO BH implement in next PR
   })
 
   it('should store config and inform config broker', async () => {
@@ -92,9 +90,26 @@ describe('storeConfigVersionAndInformBroker', () => {
     expect(mockLogger.info).toHaveBeenCalledWith(
       "successfully notified the config broker about 'grant-1' at version '1.2.3'"
     )
+    expect(listFiles).toHaveBeenCalledTimes(1)
     expect(readFileSync).toHaveBeenCalledTimes(1)
     expect(uploadBlob).toHaveBeenCalledTimes(1)
     expect(fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('should still inform config broker but skip storing when already exists', async () => {
+    existsSync.mockReturnValue(true)
+    lstatSync.mockReturnValue({ isDirectory: () => true })
+    readdirSync
+      .mockReturnValueOnce([{ name: 'grant-1', isDirectory: () => true }])
+      .mockReturnValueOnce([{ name: 'main.json', isFile: () => true, parentPath: 'configurations/grant-1' }])
+    listFiles.mockReturnValueOnce([{ Contents: ['fake-content-1'] }])
+
+    await storeConfigVersionAndInformBroker(mockLogger)
+
+    expect(listFiles).toHaveBeenCalledTimes(1)
+    expect(readFileSync).not.toHaveBeenCalled()
+    expect(uploadBlob).not.toHaveBeenCalled()
+    expect(fetch).not.toHaveBeenCalled()
   })
 
   it('should call config broker for each config (subdirectory) found in configurations folder', async () => {
@@ -123,12 +138,9 @@ describe('storeConfigVersionAndInformBroker', () => {
     expect(mockLogger.info).toHaveBeenCalledWith(
       "successfully notified the config broker about 'grant-2' at version '1.2.3'"
     )
+    expect(listFiles).toHaveBeenCalledTimes(2)
     expect(readFileSync).toHaveBeenCalledTimes(3)
     expect(uploadBlob).toHaveBeenCalledTimes(3)
     expect(fetch).toHaveBeenCalledTimes(2)
-  })
-
-  it.skip('should check storage for each config (subdirectory) found in configurations folder', async () => {
-    // TODO BH implement in next PR
   })
 })
