@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.0.1
+
+### Patch Changes
+
+- 91829f5: feat(GRAN-20): updated publish workflow so not just config changes released
+
 ## 3.0.0
 
 ### Major Changes
