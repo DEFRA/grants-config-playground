@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 2.1.1
+
+### Patch Changes
+
+- b251525: feat(GRAN-20): testing the PR force title to include patch|minor|major with a hashtag
+
 ## 2.1.0
 
 ### Minor Changes
