@@ -58,7 +58,7 @@ jobs:
           version="patch"
 
           # read all changeset files
-          for file in .changeset/*.md; do
+          for file in .changeset/*-*-*.md; do
 
             # skip if not file
             [ -f "$file" ] || continue
