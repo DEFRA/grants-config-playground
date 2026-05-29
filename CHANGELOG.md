@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.1.9
+
+### Patch Changes
+
+- a9bfb10: feat(GRAN-20): auto merge release pr, trigger release publish workflow
+
 ## 3.1.8
 
 ### Patch Changes
