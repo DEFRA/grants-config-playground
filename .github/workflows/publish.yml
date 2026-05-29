@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -143,5 +144,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'publish.yml',
-              ref: 'main'
+              ref: 'main',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
             });
