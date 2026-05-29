@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.1.1
+
+### Patch Changes
+
+- 9bd7162: feat(GRAN-20): update changeset check, force pass before merge and used by changeset pr
+
 ## 3.1.0
 
 ### Minor Changes
