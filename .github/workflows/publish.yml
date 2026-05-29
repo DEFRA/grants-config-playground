@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      commit_message:
+        description: 'commit message'
+        required: false
+        type: string
 
 permissions:
   id-token: write
@@ -36,7 +41,7 @@ jobs:
           npm test
 
       - name: Build and Publish to CDP
-        if: ${{ startsWith(github.event.head_commit.message, 'Create new config version') }}
+        if: ${{ startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -49,11 +54,11 @@ jobs:
       #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Set user
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
+        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create release message
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
+        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         shell: bash
         run: |
           # default to patch version
@@ -95,7 +100,7 @@ jobs:
           echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
       - name: Create release PR
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
+        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
@@ -104,7 +109,7 @@ jobs:
           title: ${{ env.RELEASE_MSG }}
 
       - name: Merge release PR
-        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
+        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -147,5 +152,8 @@ jobs:
               ref: 'main',
               headers: {
                 'X-GitHub-Api-Version': '2022-11-28'
+              },
+              inputs: {
+                commit_message: ${{ env.RELEASE_MSG }}
               }
             });
