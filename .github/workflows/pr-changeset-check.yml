@@ -1,20 +1,27 @@
-name: PR check changeset exists
+name: PR check changeset check
 
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
 jobs:
-  validate-changeset-exists:
+  validate-changeset-check:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
-      - name: Check changeset exists
+      - name: Check changeset check
         shell: bash
         run: |
+          if [[ "${{ github.head_ref }}" == "changeset-release/main" ]] && git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -qx "CHANGELOG.md"; then
+            echo "Release PR detected with CHANGELOG.md changes"
+            exit 0
+          fi
+
           if ! find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
             echo "PR must include at least one changeset file in .changeset/"
             exit 1
