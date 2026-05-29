@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 4.0.1
+
+### Patch Changes
+
+- de6f8f1: feat(GRAN-20): test patch
+
 ## 4.0.0
 
 ### Major Changes
