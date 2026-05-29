@@ -10,6 +10,7 @@ permissions:
   contents: write
   pull-requests: write
   checks: write
+  actions: write
 
 env:
   AWS_REGION: eu-west-2
@@ -47,9 +48,11 @@ jobs:
       #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Set user
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create release message
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         shell: bash
         run: |
           # default to patch version
@@ -91,6 +94,7 @@ jobs:
           echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
       - name: Create release PR
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
@@ -99,6 +103,7 @@ jobs:
           title: ${{ env.RELEASE_MSG }}
 
       - name: Merge release PR
+        if: ${{ !startsWith(github.event.head_commit.message, 'Create new config version') }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -132,4 +137,11 @@ jobs:
               repo: context.repo.repo,
               pull_number: releasePR.number,
               merge_method: "squash"
+            });
+
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish.yml',
+              ref: 'main'
             });
