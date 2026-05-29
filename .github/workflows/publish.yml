@@ -89,10 +89,32 @@ jobs:
           # store as environment variable for later use
           echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
-      - name: Create Release or Pull Request
+      - name: Create release PR
         uses: changesets/action@v1
         with:
-          commitMode: 'github-api'
           publish: npm run github:release
           commit: ${{ env.RELEASE_MSG }}
           title: ${{ env.RELEASE_MSG }} ⚠️ Don't edit commit message when merging
+
+      - name: Merge release PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+            });
+
+            const releasePR = pr.data.find(p =>
+              p.head.ref.startsWith("changeset-release/")
+            );
+
+            if (!releasePR) return;
+
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: releasePR.number,
+              merge_method: "squash"
+            });
