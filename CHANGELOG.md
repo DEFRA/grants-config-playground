@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.1.3
+
+### Patch Changes
+
+- 3710cab: feat(GRAN-20): auto run release PR
+
 ## 3.1.2
 
 ### Patch Changes
