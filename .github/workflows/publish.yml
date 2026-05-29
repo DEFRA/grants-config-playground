@@ -122,7 +122,7 @@ jobs:
               conclusion: 'success',
               output: {
                 title: 'Required check triggered',
-                summary: `Check created for PR #${prNumber}`
+                summary: `Check created for PR #${releasePR.number}`
               }
             })
 
