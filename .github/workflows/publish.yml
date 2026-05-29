@@ -92,6 +92,7 @@ jobs:
       - name: Create release PR
         uses: changesets/action@v1
         with:
+          commitMode: 'git'
           publish: npm run github:release
           commit: ${{ env.RELEASE_MSG }}
           title: ${{ env.RELEASE_MSG }} ⚠️ Don't edit commit message when merging
