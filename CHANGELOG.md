@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 3.2.0
+
+### Minor Changes
+
+- af7b129: feat(GRAN-20): feat(GRAN-20): auto merge Release PR
+
 ## 3.1.9
 
 ### Patch Changes
