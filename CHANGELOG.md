@@ -1,5 +1,19 @@
 # grants-config-playground
 
+## 4.0.0
+
+### Major Changes
+
+- 97596fa: feat(GRAN-20): test major change
+
+### Minor Changes
+
+- 97596fa: feat(GRAN-20): now add in a minor change
+
+### Patch Changes
+
+- 97596fa: feat(GRAN-20): patch to finish
+
 ## 3.2.0
 
 ### Minor Changes
