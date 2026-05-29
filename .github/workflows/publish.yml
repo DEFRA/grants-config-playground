@@ -154,6 +154,6 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               },
               inputs: {
-                commit_message: ${{ env.RELEASE_MSG }}
+                commit_message: process.env.RELEASE_MSG
               }
             });
