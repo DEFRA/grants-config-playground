@@ -1,4 +1,5 @@
 name: Publish
+run-name: ${{ github.event.inputs.run_name || 'Publish' }}
 
 on:
   push:
@@ -6,6 +7,10 @@ on:
       - main
   workflow_dispatch:
     inputs:
+      run_name:
+        description: 'run name'
+        required: false
+        type: string
       commit_message:
         description: 'commit message'
         required: false
@@ -108,7 +113,7 @@ jobs:
           commit: ${{ env.RELEASE_MSG }}
           title: ${{ env.RELEASE_MSG }}
 
-      - name: Merge release PR
+      - name: Finds release PR, triggers checks, merges and trigger publish
         if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: actions/github-script@v7
         with:
@@ -145,6 +150,12 @@ jobs:
               merge_method: "squash"
             });
 
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${releasePR.head.ref}`
+            });
+
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -154,6 +165,7 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               },
               inputs: {
+                run_name: process.env.RELEASE_MSG
                 commit_message: process.env.RELEASE_MSG
               }
             });
