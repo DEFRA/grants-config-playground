@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 4.0.5
+
+### Patch Changes
+
+- bc88c73: feat(GRAN-20): workflow update, improve release PR lookup
+
 ## 4.0.4
 
 ### Patch Changes
