@@ -1,5 +1,12 @@
 # grants-config-playground
 
+## 4.0.2
+
+### Patch Changes
+
+- 06f5d9d: test workflow updates, run name and delete changeset feature branch
+- bfcd87e: test workflow updates, run name and delete changeset feature branch
+
 ## 4.0.1
 
 ### Patch Changes
