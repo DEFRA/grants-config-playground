@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 4.0.4
+
+### Patch Changes
+
+- d35a573: GRAN-20 test workflow updates, run name
+
 ## 4.0.3
 
 ### Patch Changes
