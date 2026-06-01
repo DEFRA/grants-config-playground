@@ -1,5 +1,5 @@
 name: Publish
-run-name: ${{ github.event.inputs.run_name || 'Publish' }}
+run-name: ${{ github.event.inputs.run_name || github.event.pull_request.title || 'Publish' }}
 
 on:
   push:
