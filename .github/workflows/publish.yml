@@ -105,6 +105,7 @@ jobs:
           echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
       - name: Create release PR
+        id: changesets
         if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: changesets/action@v1
         with:
@@ -113,20 +114,17 @@ jobs:
           commit: ${{ env.RELEASE_MSG }}
           title: ${{ env.RELEASE_MSG }}
 
-      - name: Finds release PR, triggers checks, merges and trigger publish
+      - name: Trigger required checks on release PR, then merge to main, deploy to CDP and delete release branch
         if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: actions/github-script@v7
         with:
           script: |
-            const pr = await github.rest.pulls.list({
+            const prNumber = Number("${{ steps.changesets.outputs.pullRequestNumber }}");
+            const { data: releasePR } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              state: "open",
+              pull_number: prNumber,
             });
-
-            const releasePR = pr.data.find(p =>
-              p.head.ref.startsWith("changeset-release/")
-            );
 
             if (!releasePR) return;
 
