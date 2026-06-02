@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 4.0.6
+
+### Patch Changes
+
+- 7e4bdb8: feat(GRAN-20): removed unnecessary changes made to templete project
+
 ## 4.0.5
 
 ### Patch Changes
