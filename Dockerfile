@@ -12,7 +12,7 @@ ENV PORT=${PORT}
 EXPOSE ${PORT} ${PORT_DEBUG}
 
 COPY --chown=node:node package*.json ./
-RUN npm ci
+RUN npm install
 COPY --chown=node:node ./src ./src
 COPY --chown=node:node ./configurations ./configurations
 

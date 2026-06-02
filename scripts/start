@@ -14,13 +14,6 @@ fi
 
 cd "${projectRoot}"
 
-# Ensure the shared external network exists
-network_name="grants-framework-playgound"
-if ! docker network inspect "$network_name" >/dev/null 2>&1; then
-  echo "Creating external network: $network_name"
-  docker network create "$network_name"
-fi
-
 $compose_cmd down
 
 $compose_cmd \
