@@ -2,7 +2,7 @@
 
 Core delivery platform Node.js Backend Template.
 
-- [Adding Grant Configuration](#adding-grant-configuration)
+- [Grant Configuration](#grant-configuration)
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
 - [Local development](#local-development)
@@ -26,7 +26,7 @@ Core delivery platform Node.js Backend Template.
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
-## Adding Grant Configuration
+## Grant Configuration
 
 ### Creating a New Grant
 
