@@ -1,5 +1,19 @@
 # grants-config-playground
 
+## 5.0.0
+
+### Major Changes
+
+- a3edc82: feat(GRAN-8): major change now required
+
+### Minor Changes
+
+- a3edc82: feat(GRAN-8): then needed a minor
+
+### Patch Changes
+
+- a3edc82: feat(GRAN-8): patch change
+
 ## 4.0.7
 
 ### Patch Changes
