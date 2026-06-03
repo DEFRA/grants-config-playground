@@ -2,7 +2,7 @@
 
 Core delivery platform Node.js Backend Template.
 
-- [Adding Grant Config](#adding-grant-config)
+- [Grant Configuration](#grant-configuration)
 - [Requirements](#requirements)
   - [Node.js](#nodejs)
 - [Local development](#local-development)
@@ -26,7 +26,7 @@ Core delivery platform Node.js Backend Template.
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
-## Adding Grant Configuration
+## Grant Configuration
 
 ### Creating a New Grant
 
@@ -56,7 +56,7 @@ To create a new grant:
 
    ```bash
    git add .
-   git commit -m "feat(TICKET-NO): YOUR MESSAGE HERE"
+   git commit -m "feat(YOUR-TICKET): YOUR-MESSAGE"
    ```
 
 5. Push your branch and then follow the standard GitHub pull request process.
