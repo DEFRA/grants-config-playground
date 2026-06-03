@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 4.0.7
+
+### Patch Changes
+
+- 54ad5b6: feat(GRAN-8): minor improvements
+
 ## 4.0.6
 
 ### Patch Changes
