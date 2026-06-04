@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 5.0.3
+
+### Patch Changes
+
+- 8a467af: feat(GRAN-8): demo patch
+
 ## 5.0.2
 
 ### Patch Changes
