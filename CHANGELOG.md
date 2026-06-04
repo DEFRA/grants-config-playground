@@ -1,5 +1,19 @@
 # grants-config-playground
 
+## 6.0.0
+
+### Major Changes
+
+- f03d244: major change for demo
+
+### Minor Changes
+
+- f03d244: test minor change
+
+### Patch Changes
+
+- f03d244: test delete
+
 ## 5.0.3
 
 ### Patch Changes
