@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 5.0.1
+
+### Patch Changes
+
+- ff60a08: feat(GRAN-8): test notifications
+
 ## 5.0.0
 
 ### Major Changes
