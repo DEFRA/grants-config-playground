@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.1
+
+### Patch Changes
+
+- 791e5c1: fix(GRAN-8): GitHub releases
+
 ## 6.0.0
 
 ### Major Changes
