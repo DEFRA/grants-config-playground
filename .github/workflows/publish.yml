@@ -1,4 +1,5 @@
 name: Publish
+
 run-name: ${{ github.event.inputs.run_name || github.event.head_commit.message || 'Publish' }}
 
 on:
@@ -51,19 +52,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      #      - name: SonarCloud Scan
-      #        uses: SonarSource/sonarqube-scan-action@v5.3.1 #  (or check latest version on https://github.com/marketplace/actions/official-sonarqube-scan)
-      #        continue-on-error: true
-      #        env:
-      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
       - name: Set user
-        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
       - name: Create release message
-        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         shell: bash
         run: |
           # default to patch version
@@ -104,9 +96,8 @@ jobs:
           # store as environment variable for later use
           echo "RELEASE_MSG=Create new config version #$version" >> $GITHUB_ENV
 
-      - name: Create release PR
+      - name: Create Release PR or GitHub Release
         id: changesets
-        if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: changesets/action@v1
         with:
           commitMode: 'github-api'
