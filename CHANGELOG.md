@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.3
+
+### Patch Changes
+
+- bb42485: test using broker endpoint when sns comms added but not yet configured
+
 ## 6.0.2
 
 ### Patch Changes
