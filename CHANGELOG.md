@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.2
+
+### Patch Changes
+
+- 3f43bbe: test active status default
+
 ## 6.0.1
 
 ### Patch Changes
