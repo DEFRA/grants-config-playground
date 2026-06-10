@@ -2,7 +2,7 @@
 
 ## 6.0.3
 
-## Below is copied in from old config repo, see https://github.com/DEFRA/grant-config-playground/blob/main/CHANGELOG.md
+## Below is copied in from the old config repo, see https://github.com/DEFRA/grant-config-playground
 
 ## 4.2.3
 
