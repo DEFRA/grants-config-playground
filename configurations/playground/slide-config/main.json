@@ -1,3 +1,4 @@
 {
-  "steps": 10
+  "steps": 10,
+  "test": "sns comms with broker"
 }

@@ -2,319 +2,208 @@
 
 ## 6.0.3
 
-### Patch Changes
+## Below is copied in from old config repo, see https://github.com/DEFRA/grant-config-playground/blob/main/CHANGELOG.md
 
-- bb42485: test using broker endpoint when sns comms added but not yet configured
-
-## 6.0.2
+## 4.2.3
 
 ### Patch Changes
 
-- 3f43bbe: test active status default
+- c7217d1: Ready for main
 
-## 6.0.1
+## 4.2.2
 
 ### Patch Changes
 
-- 791e5c1: fix(GRAN-8): GitHub releases
+- d4b8058: Checking out the generated release command
 
-## 6.0.0
+## 4.2.1
 
-### Major Changes
+### Patch Changes
 
-- f03d244: major change for demo
+- 86946e7: add roundabout config
+
+## 4.2.0
 
 ### Minor Changes
 
-- f03d244: test minor change
+- d3ebed3: feat(GRAN-20): update playground-grant config, minor change
+
+## 4.1.9
 
 ### Patch Changes
 
-- f03d244: test delete
+- cd08ae4: Happy all done, go to main
 
-## 5.0.3
-
-### Patch Changes
-
-- 8a467af: feat(GRAN-8): demo patch
-
-## 5.0.2
+## 4.1.8
 
 ### Patch Changes
 
-- afd508e: feat(GRAN-8): demo test patch
+- ad0e8dc: one of a few
 
-## 5.0.1
+## 4.1.7
 
 ### Patch Changes
 
-- ff60a08: feat(GRAN-8): test notifications
+- 8e41eab: justa testet
 
-## 5.0.0
+## 4.1.6
 
-### Major Changes
+### Patch Changes
 
-- a3edc82: feat(GRAN-8): major change now required
+- e645dde: Going back to normal flow
+
+## 4.1.5
+
+### Patch Changes
+
+- 6efd079: Happy with the changes on dev, proceed to main
+
+## 4.1.4
+
+### Patch Changes
+
+- c92c9c6: a second dev change
+
+## 4.1.3
+
+### Patch Changes
+
+- b2b9169: just some change
+
+## 4.1.2
+
+### Patch Changes
+
+- d62a431: Try this new thing
+
+## 4.1.1
+
+### Patch Changes
+
+- 3429d5a: Add slide config
+
+## 4.1.0
 
 ### Minor Changes
 
-- a3edc82: feat(GRAN-8): then needed a minor
-
-### Patch Changes
-
-- a3edc82: feat(GRAN-8): patch change
-
-## 4.0.7
-
-### Patch Changes
-
-- 54ad5b6: feat(GRAN-8): minor improvements
-
-## 4.0.6
-
-### Patch Changes
-
-- 7e4bdb8: feat(GRAN-20): removed unnecessary changes made to templete project
-
-## 4.0.5
-
-### Patch Changes
-
-- bc88c73: feat(GRAN-20): workflow update, improve release PR lookup
-
-## 4.0.4
-
-### Patch Changes
-
-- d35a573: GRAN-20 test workflow updates, run name
-
-## 4.0.3
-
-### Patch Changes
-
-- d8f75e4: GRAN-20 test workflow updates, run name
+- a60c300: introduce new grant, playground-grant
 
 ## 4.0.2
 
 ### Patch Changes
 
-- 06f5d9d: test workflow updates, run name and delete changeset feature branch
-- bfcd87e: test workflow updates, run name and delete changeset feature branch
+- ea78e9c: Checking process
 
 ## 4.0.1
 
 ### Patch Changes
 
-- de6f8f1: feat(GRAN-20): test patch
+- 95bbd9e: Checking process flow
 
 ## 4.0.0
 
 ### Major Changes
 
-- 97596fa: feat(GRAN-20): test major change
-
-### Minor Changes
-
-- 97596fa: feat(GRAN-20): now add in a minor change
-
-### Patch Changes
-
-- 97596fa: feat(GRAN-20): patch to finish
+- 0691a27: Another major version
 
 ## 3.2.0
 
 ### Minor Changes
 
-- af7b129: feat(GRAN-20): feat(GRAN-20): auto merge Release PR
-
-## 3.1.9
-
-### Patch Changes
-
-- 82325c9: feat(GRAN-20): auto merge release pr, trigger release publish workflow
-- a9bfb10: feat(GRAN-20): auto merge release pr, trigger release publish workflow
-
-## 3.1.8
-
-### Patch Changes
-
-- ca6d30a: feat(GRAN-20): auto merge release PR, trigger release publish workflow
-
-## 3.1.7
-
-### Patch Changes
-
-- 7d8e099: feat(GRAN-20): auto merge release PR, trigger publish workflow
-
-## 3.1.6
-
-### Patch Changes
-
-- cc62f83: feat(GRAN:20): auto merge release pr
-
-## 3.1.5
-
-### Patch Changes
-
-- 90c3a38: feat(GRAN-20): auto merge release PR
-
-## 3.1.4
-
-### Patch Changes
-
-- 1248611: feat(GRAN-20): auto merge release pr
-
-## 3.1.3
-
-### Patch Changes
-
-- 3710cab: feat(GRAN-20): auto run release PR
-
-## 3.1.2
-
-### Patch Changes
-
-- 68e652a: feat(GRAN-20): auto merge release PR
-
-## 3.1.1
-
-### Patch Changes
-
-- 9bd7162: feat(GRAN-20): update changeset check, force pass before merge and used by changeset pr
+- 95754cb: try differnt exclusion criteria
 
 ## 3.1.0
 
 ### Minor Changes
 
-- 08f0fd4: feat(GRAN-20): use @defra/grants-config-utils library
-
-## 3.0.1
-
-### Patch Changes
-
-- 91829f5: feat(GRAN-20): updated publish workflow so not just config changes released
+- 1f400a7: Prevent check again on github bot PR
 
 ## 3.0.0
 
 ### Major Changes
 
-- d19bf96: feat(GRAN-20): removed test grant config
-
-### Minor Changes
-
-- d19bf96: feat(GRAN-20): removed field from config file
-
-## 2.1.1
-
-### Patch Changes
-
-- b251525: feat(GRAN-20): testing the PR force title to include patch|minor|major with a hashtag
-
-## 2.1.0
-
-### Minor Changes
-
-- a127558: feat(GRAN-20): add new grant config
-
-## 2.0.3
-
-### Patch Changes
-
-- eea4fb7: feat(GRAN-20): remove nested config
-
-## 2.0.2
-
-### Patch Changes
-
-- 73c21d7: feat(GRAN-20): test nested config, also removed repository from release-config payload
-
-## 2.0.1
-
-### Patch Changes
-
-- cf1edb0: feat(GRAN-20): non-config change version, configure service for local running, also add playground config s3 upload
+- 5a1ae29: Major surgery
+- 386e755: Stop excess workflow runs
 
 ## 2.0.0
 
 ### Major Changes
 
-- 47274a3: feat(GRAN-20): having a bad day, decided I need a major change
-
-### Minor Changes
-
-- 47274a3: feat(GRAN-20): day got worse, actually need a minor change
-- 47274a3: feat(GRAN-20): first intend on making a minor change
-
-### Patch Changes
-
-- 47274a3: feat(GRAN-20): changed my mind, now want a patch
-
-## 1.1.0
-
-### Minor Changes
-
-- 471fd5d: feat(GRAN-20) minor
-
-### Patch Changes
-
-- 471fd5d: feat(GRAN-20) patch
-
-## 1.0.1
-
-### Patch Changes
-
-- 6d08512: feat(GRAN-20) change swing config
+- b8072c2: go up another major for testing
 
 ## 1.0.0
 
 ### Major Changes
 
-- e450b8c: feat(GRAN-20): removed swings config path
+- 76c8ceb: Simulate major change in order to go back and try hotfixes
+
+## 0.3.1
+
+### Patch Changes
+
+- 6b26b4d: update workflows for hotfix process
+
+## 0.3.0
+
+### Minor Changes
+
+- 726688f: Add workflow file for hotfix release
+
+## 0.2.1
+
+### Patch Changes
+
+- 1b17a58: Final readme update for now
+- 1146e45: Further minor update
 
 ## 0.2.0
 
 ### Minor Changes
 
-- 282593e: feat(GRAN-20): add new config path
-
-## 0.1.7
+- c6bc79d: Check addition of a minor change too
 
 ### Patch Changes
 
-- dbd423a: feat(GRAN-20) test release
+- efd5a00: Updating the readme
 
 ## 0.1.6
 
 ### Patch Changes
 
-- 4ff776b: feat(GRAN-20): test release
+- 3b35d18: Update the readme
 
 ## 0.1.5
 
 ### Patch Changes
 
-- efb1d03: feat(GRAN-20): test release
+- d62ac8d: Update wording
 
 ## 0.1.4
 
 ### Patch Changes
 
-- 0d873ff: test release and error when forgetting to create changeset
+- d76879d: set user for tagging again
 
 ## 0.1.3
 
 ### Patch Changes
 
-- e90cfb0: happy path
+- f43047b: Publish tags after
 
 ## 0.1.2
 
 ### Patch Changes
 
-- 3684f0d: feat(GRAN-20): add changeset capability and git hooks to enforce&prepare commit message 2
+- 3e090dd: Using github api for PR
 
 ## 0.1.1
 
 ### Patch Changes
 
-- a54f85d: feat(GRAN-20): add changeset capability and git hooks to enforce&prepare commit message
+- 2310f75: Set user for tag
+
+## 0.1.0
+
+### Minor Changes
+
+- 8342c79: Switch versioning to pre-push
