@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.4
+
+### Patch Changes
+
+- cb1efee: test sns comms with broker
+
 ## 6.0.3
 
 ## Below is copied in from the old config repo, see https://github.com/DEFRA/grant-config-playground
