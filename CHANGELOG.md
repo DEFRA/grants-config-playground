@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.5
+
+### Patch Changes
+
+- f939ed9: test workflows are still working
+
 ## 6.0.4
 
 ### Patch Changes
