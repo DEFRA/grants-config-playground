@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.6
+
+### Patch Changes
+
+- 6009f12: feat(GRAN-8): test config change still triggers publish
+
 ## 6.0.5
 
 ### Patch Changes
