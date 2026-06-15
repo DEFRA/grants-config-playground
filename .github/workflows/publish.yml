@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'configurations/**'
   workflow_dispatch:
     inputs:
       run_name:
@@ -46,7 +48,7 @@ jobs:
           npm ci
           npm test
 
-      - name: Build and Publish to CDP
+      - name: Build and Publish
         if: ${{ startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: DEFRA/cdp-build-action/build@main
         with:
