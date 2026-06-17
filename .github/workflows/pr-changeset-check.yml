@@ -1,4 +1,4 @@
-name: PR check changeset required
+name: PR check changeset check
 
 on:
   pull_request:
