@@ -238,7 +238,7 @@ A local environment with:
 - Floci for AWS services (S3, SQS, SNS etc)
 - Redis
 - This service.
-- A commented out frontend example.
+- A commented out frontend example. BH TEMP
 
 ```bash
 docker compose up --build -d
