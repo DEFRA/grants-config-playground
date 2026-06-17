@@ -1,4 +1,4 @@
 {
-  "steps": 10,
-  "test": "test releases changes when config changes 2"
+  "steps": 1,
+  "test": "test config still works after latest changes 1"
 }
