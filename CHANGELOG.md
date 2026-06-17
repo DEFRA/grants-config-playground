@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.7
+
+### Patch Changes
+
+- 7ab6d1d: test config still works after latest changes
+
 ## 6.0.6
 
 ### Patch Changes
