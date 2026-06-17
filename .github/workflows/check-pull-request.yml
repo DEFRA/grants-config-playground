@@ -41,7 +41,7 @@ jobs:
           exit $?
 
       - name: SonarCloud Scan
-        if: github.actor != 'dependabot[bot]' && steps.release_yml.outputs.release_only != 'true'
+        if: github.actor != 'dependabot[bot]'
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 #8.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
