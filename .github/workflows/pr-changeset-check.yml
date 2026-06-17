@@ -1,4 +1,4 @@
-name: PR check changeset present/absent
+name: PR check changeset required
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check changeset only present when changes to configurations
+      - name: Ensure changeset exists only when configurations are modified
         if: github.ref != 'changeset-release/main'
         shell: bash
         run: |
@@ -23,7 +23,7 @@ jobs:
             echo "Changes made to `configurations`, checking changeset(s) exist.."
 
             if ! find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
-              echo "PR changes files in configurations/, so must include at least one changeset file."
+              echo "PR changes files in configurations, so must include at least one changeset file."
               exit 1
             fi
 
@@ -33,7 +33,7 @@ jobs:
             echo "No changes made to `configurations`, checking changeset(s) don't exist.."
 
             if find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
-              echo "PR does not change files in configurations/, so must not include any changeset files."
+              echo "PR does not change files in configurations, so must not include any changeset files."
               exit 1
             fi
           fi
