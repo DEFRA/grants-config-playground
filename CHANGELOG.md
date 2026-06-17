@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.8
+
+### Patch Changes
+
+- e5bfe49: needed to trigger sonar after shallow clone fix
+
 ## 6.0.7
 
 ### Patch Changes
