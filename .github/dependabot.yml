@@ -32,9 +32,7 @@ updates:
       interval: weekly
       time: '10:30'
       timezone: 'Europe/London'
-
     versioning-strategy: increase
-
     allow:
       # Include direct package.json updates
       - dependency-type: direct
