@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.0.9
+
+### Patch Changes
+
+- 170b470: test still works after latest changes 4
+
 ## 6.0.8
 
 ### Patch Changes
