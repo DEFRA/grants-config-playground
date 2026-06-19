@@ -1,4 +1,4 @@
 {
-  "steps": 2,
-  "test": "test config still works after latest changes 2"
+  "steps": 4,
+  "test": "test config still works after dependency bumps"
 }
