@@ -108,7 +108,7 @@ jobs:
           commit: ${{ env.RELEASE_MSG }}
           title: ${{ env.RELEASE_MSG }}
 
-      - name: Trigger required checks on release PR, then merge to main, deploy to CDP and delete release branch
+      - name: Trigger required checks on release PR, then merge to hotfix branch, deploy to CDP and delete release branch
         if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #9.0.0
         with:
@@ -145,8 +145,8 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'publish.yml',
-              ref: 'main',
+              workflow_id: 'publish-hotfix.yml',
+              ref: context.ref.replace('refs/heads/', ''),
               headers: {
                 'X-GitHub-Api-Version': '2022-11-28'
               },
