@@ -1,4 +1,4 @@
 {
-  "steps": 9,
-  "test": "hotfix config prep, bump patch version with updated hotfix workflow"
+  "steps": 6.3,
+  "test": "hotfix 6.3.x config, attempt 4 on new hotfix-release branch"
 }
