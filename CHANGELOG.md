@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.4.0
+
+### Minor Changes
+
+- a65ef5d: feat(GRAN-51): hotfix config prep 10, bump minor version
+
 ## 6.3.1
 
 ### Patch Changes
