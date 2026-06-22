@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.3
+
+### Patch Changes
+
+- 38c2ee6: second version created from hotfix-release/6.3.x branch
+
 ## 6.3.2
 
 ### Patch Changes
