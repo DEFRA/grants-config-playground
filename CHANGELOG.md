@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.2.2
+
+### Patch Changes
+
+- 604f0b6: hotfix config, attempt 1
+
 ## 6.2.1
 
 ### Patch Changes
