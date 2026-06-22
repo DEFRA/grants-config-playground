@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.0
+
+### Minor Changes
+
+- 509864f: hotfix prep, bump minor version
+
 ## 6.2.1
 
 ### Patch Changes
