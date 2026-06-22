@@ -1,4 +1,5 @@
 {
   "steps": 6.3,
-  "test": "hotfix 6.3.x config, attempt 4 on new hotfix-release branch"
+  "test": "hotfix 6.3.x config, second version created from hotfix-release branch",
+  "speed": "fast"
 }
