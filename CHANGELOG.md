@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.1.0
+
+### Minor Changes
+
+- fdf1826: hotfix prep, bump minor version
+
 ## 6.0.9
 
 ### Patch Changes
