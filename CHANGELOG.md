@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.1
+
+### Patch Changes
+
+- 6ac431a: feat(GRAN-51): hotfix config prep, bump patch version with updated hotfix workflow
+
 ## 6.3.0
 
 ### Minor Changes
