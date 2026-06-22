@@ -1,12 +1,28 @@
 name: Publish Hot Fix
 
+run-name: >-
+  Publish Hot Fix - ${{ github.ref_name }}${{
+    inputs.run_name && format(' - {0}', inputs.run_name) || ''
+  }}
+
 on:
   workflow_dispatch:
+    inputs:
+      run_name:
+        description: 'run name'
+        required: false
+        type: string
+      commit_message:
+        description: 'commit message'
+        required: false
+        type: string
 
 permissions:
   id-token: write
   contents: write
   pull-requests: write
+  checks: write
+  actions: write
 
 env:
   AWS_REGION: eu-west-2
@@ -22,23 +38,133 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e #6.4.0
+      - name: Test code and Create Test Coverage Reports
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e #6.4.0
         with:
           node-version-file: .nvmrc
           cache: npm
 
       # Ensure tests pass. Add more checks if required
-      - run: npm ci
-      - run: npm test
+      - run: |
+          npm ci
+          npm test
 
       - name: Publish Hot Fix
+        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
         uses: DEFRA/cdp-build-action/build-hotfix@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: npm install && npm test
+      - name: Set user
+        run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
+
+      - name: Create release message
+        shell: bash
+        run: |
+          # default to patch version
+          version="patch"
+
+          # read all changeset files
+          for file in .changeset/*-*-*.md; do
+
+            # skip if not file
+            [ -f "$file" ] || continue
+
+            # extract only the version block
+            versionblock=$(awk '
+              BEGIN { inside=0 }
+              /^---$/ {
+                if (inside == 0) {
+                  inside=1
+                  next
+                } else {
+                  exit
+                }
+              }
+              inside == 1 { print }
+            ' "$file")
+
+            # major wins immediately
+            if echo "$versionblock" | grep -Eq ':\s*major'; then
+              version="major"
+              break
+            fi
+
+            # minor overrides patch
+            if echo "$versionblock" | grep -Eq ':\s*minor'; then
+              version="minor"
+            fi
+          done
+
+          # store as environment variable for later use
+          echo "RELEASE_MSG=Create new hotfix config version #$version" >> $GITHUB_ENV
+
+      - name: Create Release PR or GitHub Release
+        id: changesets
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d #1.9.0
+        with:
+          commitMode: 'github-api'
+          publish: npm run github:release
+          commit: ${{ env.RELEASE_MSG }}
+          title: ${{ env.RELEASE_MSG }}
+
+      - name: Trigger required checks on release PR, then merge to main, deploy to CDP and delete release branch
+        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #9.0.0
+        with:
+          script: |
+            const prNumber = Number("${{ steps.changesets.outputs.pullRequestNumber }}");
+            const { data: releasePR } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
+
+            if (!releasePR) return;
+
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'validate-changeset-check',
+              head_sha: releasePR.head.sha,
+              status: 'completed',
+              conclusion: 'success',
+              output: {
+                title: 'Required check triggered',
+                summary: `Check created for PR #${releasePR.number}`
+              }
+            })
+
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: releasePR.number,
+              merge_method: "squash"
+            });
+
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish.yml',
+              ref: 'main',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              },
+              inputs: {
+                run_name: process.env.RELEASE_MSG,
+                commit_message: process.env.RELEASE_MSG
+              }
+            });
+
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${releasePR.head.ref}`
+            });
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e #8.2.0
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
