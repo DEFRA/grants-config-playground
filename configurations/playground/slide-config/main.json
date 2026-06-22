@@ -1,4 +1,4 @@
 {
-  "steps": 4,
-  "test": "test config still works after dependency bumps"
+  "steps": 5,
+  "test": "hotfix config prep, bump minor version"
 }
