@@ -1,4 +1,4 @@
 {
-  "steps": 5,
-  "test": "hotfix config prep, bump minor version"
+  "steps": 6,
+  "test": "hotfix config prep, bump patch version"
 }
