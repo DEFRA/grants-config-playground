@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.2.2
+
+### Patch Changes
+
+- 80f10a0: feat(GRAN-51): hotfix config, attempt 3
+
 ## 6.2.1
 
 ### Patch Changes
