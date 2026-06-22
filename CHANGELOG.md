@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.2
+
+### Patch Changes
+
+- 634b2d2: feat(GRAN-51): hotfix config, attempt 4 on new hotfix-release branch
+
 ## 6.3.1
 
 ### Patch Changes
