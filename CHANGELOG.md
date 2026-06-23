@@ -1,17 +1,5 @@
 # grants-config-playground
 
-## 6.6.1
-
-### Patch Changes
-
-- 21c9474: test version clash
-
-## 6.6.1
-
-### Patch Changes
-
-- ea09b47: test version clash
-
 ## 6.6.0
 
 ### Minor Changes
