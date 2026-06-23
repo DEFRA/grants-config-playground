@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.7.0
+
+### Minor Changes
+
+- f1e5679: config change 5, test version clash part 2
+
 ## 6.6.0
 
 ### Minor Changes
