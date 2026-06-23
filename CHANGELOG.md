@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.5.0
+
+### Minor Changes
+
+- 7afd107: basic change to main after hotfix fun
+
 ## 6.4.0
 
 ### Minor Changes
