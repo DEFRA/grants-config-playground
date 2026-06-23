@@ -1,5 +1,5 @@
 {
-  "steps": 10,
-  "test": "hotfix config prep 10, bump minor version",
+  "steps": 1,
+  "test": "config change 1, first change in main after hotfix fun",
   "speed": "fast"
 }
