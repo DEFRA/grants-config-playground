@@ -1,5 +1,12 @@
 # grants-config-playground
 
+## 6.3.6
+
+### Patch Changes
+
+- 15cce4d: test two versions at once, 2
+- 15cce4d: test two versions at once
+
 ## 6.3.5
 
 ### Patch Changes
