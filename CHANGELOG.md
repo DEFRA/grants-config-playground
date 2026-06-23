@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.4
+
+### Patch Changes
+
+- 6899f7d: success after removing major and minor changeset files
+
 ## 6.3.3
 
 ### Patch Changes
