@@ -1,5 +1,5 @@
 {
   "steps": 99,
-  "test": "config change 3, test version clash",
+  "test": "config change 4, test version clash",
   "speed": "fast"
 }
