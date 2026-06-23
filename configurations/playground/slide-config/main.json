@@ -1,5 +1,5 @@
 {
-  "steps": 2,
-  "test": "config change 2",
+  "steps": 1,
+  "test": "config change 1, first change in main after hotfix fun",
   "speed": "fast"
 }
