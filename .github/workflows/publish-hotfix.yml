@@ -47,6 +47,15 @@ jobs:
           npm ci
           npm test
 
+      - name: Ensure changeset exists
+        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        shell: bash
+        run: |
+          if ! find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
+            echo "❌ Hotfix releases must include at least one changeset file."
+            exit 1
+          fi
+
       - name: Read hotfix version from package.json
         if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
         run: |
