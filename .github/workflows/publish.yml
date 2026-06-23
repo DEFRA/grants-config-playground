@@ -51,14 +51,14 @@ jobs:
           npm test
 
       - name: Read version from package.json
-        if: ${{ startsWith(inputs.description, 'Create new config version') }}
+        if: ${{ startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         run: |
           echo "CONFIG_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
 
           echo "✅ Config version read"
 
       - name: Check if version already exists
-        if: ${{ startsWith(inputs.description, 'Create new config version') }}
+        if: ${{ startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         run: |
           git fetch --tags
 
