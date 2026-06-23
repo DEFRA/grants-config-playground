@@ -33,6 +33,18 @@ jobs:
     name: CDP-build-hotfix-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: Validate hotfix branch for manual dispatch
+        shell: bash
+        run: |
+          branch="${{ github.ref_name }}"
+
+          if [[ "$branch" != hotfix-releases/* ]]; then
+            echo "❌ This workflow can only be run manually against hotfix-releases/* branches."
+            exit 1
+          fi
+
+          echo "✅ Valid hotfix branch"
+
       - name: Check out code
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #7.0.0
         with:
@@ -56,20 +68,26 @@ jobs:
             exit 1
           fi
 
+          echo "✅ Changeset exists"
+
       - name: Read hotfix version from package.json
         if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
         run: |
           echo "HOTFIX_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
 
+          echo "✅ Hotfix version read"
+
       - name: Check if version already exists
         if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
         run: |
           git fetch --tags
+
           if git rev-parse "refs/tags/${HOTFIX_VERSION}" >/dev/null 2>&1; then
-            echo "Version ${HOTFIX_VERSION} already exists as a git tag"
+            echo "❌ Version ${HOTFIX_VERSION} already exists as a git tag"
             exit 1
           fi
-          echo "Version ${HOTFIX_VERSION} is available"
+
+          echo "✅ Version ${HOTFIX_VERSION} is available"
 
       - name: Publish Hot Fix
         if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
@@ -122,6 +140,8 @@ jobs:
           done
 
           echo "RELEASE_MSG=Create new hotfix config version #patch" >> "$GITHUB_ENV"
+
+          echo "✅ Changeset is patch only"
 
       - name: Create Release PR or GitHub Release
         id: changesets
