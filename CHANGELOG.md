@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.6.0
+
+### Minor Changes
+
+- 2e9ae72: config change 2
+
 ## 6.5.0
 
 ### Minor Changes
