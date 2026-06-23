@@ -99,12 +99,14 @@ jobs:
 
             if echo "$versionblock" | grep -Eq ':\s*major'; then
               echo "❌ Hotfix releases must use patch version changes only. Major version changes are not allowed."
+              echo "ℹ️ All major and minor changeset files must be removed before a hotfix release can be created."
               echo "Found in: $file"
               exit 1
             fi
 
             if echo "$versionblock" | grep -Eq ':\s*minor'; then
               echo "❌ Hotfix releases must use patch version changes only. Minor version changes are not allowed."
+              echo "ℹ️ All major and minor changeset files must be removed before a hotfix release can be created."
               echo "Found in: $file"
               exit 1
             fi
