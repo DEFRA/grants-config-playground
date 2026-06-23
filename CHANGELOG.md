@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.6.1
+
+### Patch Changes
+
+- d314780: test new hotfix branch
+
 ## 6.6.0
 
 ### Minor Changes
