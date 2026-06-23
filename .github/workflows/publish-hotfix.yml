@@ -43,8 +43,6 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-
-      # Ensure tests pass. Add more checks if required
       - run: |
           npm ci
           npm test
@@ -73,7 +71,7 @@ jobs:
       - name: Set user
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
 
-      - name: Create release message
+      - name: Validate changesets are patch releases only
         shell: bash
         run: |
           # default to patch version
@@ -99,20 +97,20 @@ jobs:
               inside == 1 { print }
             ' "$file")
 
-            # major wins immediately
             if echo "$versionblock" | grep -Eq ':\s*major'; then
-              version="major"
-              break
+              echo "❌ Hotfix releases must use patch version changes only. Major version changes are not allowed."
+              echo "Found in: $file"
+              exit 1
             fi
 
-            # minor overrides patch
             if echo "$versionblock" | grep -Eq ':\s*minor'; then
-              version="minor"
+              echo "❌ Hotfix releases must use patch version changes only. Minor version changes are not allowed."
+              echo "Found in: $file"
+              exit 1
             fi
           done
 
-          # store as environment variable for later use
-          echo "RELEASE_MSG=Create new hotfix config version #$version" >> $GITHUB_ENV
+          echo "RELEASE_MSG=Create new hotfix config version #patch" >> "$GITHUB_ENV"
 
       - name: Create Release PR or GitHub Release
         id: changesets
