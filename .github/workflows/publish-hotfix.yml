@@ -2,19 +2,15 @@ name: Publish Hot Fix
 
 run-name: >-
   Publish Hot Fix - ${{ github.ref_name }}${{
-    inputs.run_name && format(' - {0}', inputs.run_name) || ''
+    inputs.description && format(' - {0}', inputs.description) || ''
   }}
 
 on:
   workflow_dispatch:
     inputs:
-      run_name:
-        description: 'run name'
-        required: false
-        type: string
-      commit_message:
-        description: 'commit message'
-        required: false
+      description:
+        description: 'description'
+        required: true
         type: string
 
 permissions:
@@ -33,6 +29,18 @@ jobs:
     name: CDP-build-hotfix-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: Validate hotfix branch for manual dispatch
+        shell: bash
+        run: |
+          branch="${{ github.ref_name }}"
+
+          if [[ "$branch" != hotfix-releases/* ]]; then
+            echo "❌ This workflow can only be run manually against hotfix-releases/* branches."
+            exit 1
+          fi
+
+          echo "✅ Valid hotfix branch"
+
       - name: Check out code
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #7.0.0
         with:
@@ -48,7 +56,7 @@ jobs:
           npm test
 
       - name: Ensure changeset exists
-        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ !startsWith(inputs.description, 'Create new hotfix config version') }}
         shell: bash
         run: |
           if ! find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
@@ -56,23 +64,29 @@ jobs:
             exit 1
           fi
 
+          echo "✅ Changeset exists"
+
       - name: Read hotfix version from package.json
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         run: |
           echo "HOTFIX_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
 
+          echo "✅ Hotfix version read"
+
       - name: Check if version already exists
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         run: |
           git fetch --tags
+
           if git rev-parse "refs/tags/${HOTFIX_VERSION}" >/dev/null 2>&1; then
-            echo "Version ${HOTFIX_VERSION} already exists as a git tag"
+            echo "❌ Version ${HOTFIX_VERSION} already exists as a git tag"
             exit 1
           fi
-          echo "Version ${HOTFIX_VERSION} is available"
+
+          echo "✅ Version ${HOTFIX_VERSION} is available"
 
       - name: Publish Hot Fix
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         uses: DEFRA/cdp-build-action/build-hotfix@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -123,6 +137,8 @@ jobs:
 
           echo "RELEASE_MSG=Create new hotfix config version #patch" >> "$GITHUB_ENV"
 
+          echo "✅ Changeset is patch only"
+
       - name: Create Release PR or GitHub Release
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d #1.9.0
@@ -133,7 +149,7 @@ jobs:
           title: ${{ env.RELEASE_MSG }}
 
       - name: Trigger required checks on release PR, then merge to hotfix branch, deploy to CDP and delete release branch
-        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ !startsWith(inputs.description, 'Create new hotfix config version') }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #9.0.0
         with:
           script: |
@@ -175,8 +191,7 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               },
               inputs: {
-                run_name: process.env.RELEASE_MSG,
-                commit_message: process.env.RELEASE_MSG
+                description: process.env.RELEASE_MSG
               }
             });
 
