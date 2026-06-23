@@ -2,19 +2,15 @@ name: Publish Hot Fix
 
 run-name: >-
   Publish Hot Fix - ${{ github.ref_name }}${{
-    inputs.run_name && format(' - {0}', inputs.run_name) || ''
+    inputs.description && format(' - {0}', inputs.description) || ''
   }}
 
 on:
   workflow_dispatch:
     inputs:
-      run_name:
-        description: 'run name'
-        required: false
-        type: string
-      commit_message:
-        description: 'commit message'
-        required: false
+      description:
+        description: 'description'
+        required: true
         type: string
 
 permissions:
@@ -60,7 +56,7 @@ jobs:
           npm test
 
       - name: Ensure changeset exists
-        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ !startsWith(inputs.description, 'Create new hotfix config version') }}
         shell: bash
         run: |
           if ! find .changeset -maxdepth 1 -type f -name "*-*-*.md" | grep -q .; then
@@ -71,14 +67,14 @@ jobs:
           echo "✅ Changeset exists"
 
       - name: Read hotfix version from package.json
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         run: |
           echo "HOTFIX_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
 
           echo "✅ Hotfix version read"
 
       - name: Check if version already exists
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         run: |
           git fetch --tags
 
@@ -90,7 +86,7 @@ jobs:
           echo "✅ Version ${HOTFIX_VERSION} is available"
 
       - name: Publish Hot Fix
-        if: ${{ startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ startsWith(inputs.description, 'Create new hotfix config version') }}
         uses: DEFRA/cdp-build-action/build-hotfix@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -153,7 +149,7 @@ jobs:
           title: ${{ env.RELEASE_MSG }}
 
       - name: Trigger required checks on release PR, then merge to hotfix branch, deploy to CDP and delete release branch
-        if: ${{ !startsWith(inputs.commit_message, 'Create new hotfix config version') }}
+        if: ${{ !startsWith(inputs.description, 'Create new hotfix config version') }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #9.0.0
         with:
           script: |
@@ -195,8 +191,7 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               },
               inputs: {
-                run_name: process.env.RELEASE_MSG,
-                commit_message: process.env.RELEASE_MSG
+                description: process.env.RELEASE_MSG
               }
             });
 
