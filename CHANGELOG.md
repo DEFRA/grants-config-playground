@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.3.5
+
+### Patch Changes
+
+- ccdd5d0: test pre-commit hook
+
 ## 6.3.4
 
 ### Patch Changes
