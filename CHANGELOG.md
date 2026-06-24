@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.7.1
+
+### Patch Changes
+
+- 0ddcdcf: main tries to create patch already created by hotfix branch
+
 ## 6.7.0
 
 ### Minor Changes
