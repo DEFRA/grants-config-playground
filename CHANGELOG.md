@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.7.1
+
+### Patch Changes
+
+- 4aa2923: test part2, hotfix
+
 ## 6.7.0
 
 ### Minor Changes
