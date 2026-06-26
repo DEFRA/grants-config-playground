@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.0
+
+### Minor Changes
+
+- fff8dea: test works post hapi-pulse major version bump
+
 ## 6.7.1
 
 ### Patch Changes
