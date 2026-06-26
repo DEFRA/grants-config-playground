@@ -1,5 +1,5 @@
 {
   "steps": 99,
-  "test": "config change 7, test version clash part 2, main tries to create patch already created by hotfix",
+  "test": "test works post hapi-pulse major version bump",
   "speed": "fast"
 }
