@@ -1,5 +1,5 @@
 {
   "steps": 99,
-  "test": "test works post hapi-pulse major version bump",
+  "test": "test auditing works 1",
   "speed": "fast"
 }
