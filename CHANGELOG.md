@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.1
+
+### Patch Changes
+
+- 6430d9d: test auditing 1
+
 ## 6.8.0
 
 ### Minor Changes
