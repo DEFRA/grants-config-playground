@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.2
+
+### Patch Changes
+
+- d882d3c: test auditing 2
+
 ## 6.8.1
 
 ### Patch Changes
