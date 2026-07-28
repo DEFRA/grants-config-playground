@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.4
+
+### Patch Changes
+
+- 6b623b8: test after dependency bump
+
 ## 6.8.3
 
 ### Patch Changes
