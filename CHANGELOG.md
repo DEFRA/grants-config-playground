@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.5
+
+### Patch Changes
+
+- 2fc8946: Update config
+
 ## 6.8.4
 
 ### Patch Changes
