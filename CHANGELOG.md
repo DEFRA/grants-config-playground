@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.6
+
+### Patch Changes
+
+- 6f0cabd: Bump release to pick up new user in audit functionality
+
 ## 6.8.5
 
 ### Patch Changes
