@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.7
+
+### Patch Changes
+
+- f0b7188: Checking consequences of enforcing reviewers
+
 ## 6.8.6
 
 ### Patch Changes
