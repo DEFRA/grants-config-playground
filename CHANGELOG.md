@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.8
+
+### Patch Changes
+
+- 7caf399: another trial
+
 ## 6.8.7
 
 ### Patch Changes
