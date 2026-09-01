@@ -1,6 +1,6 @@
 {
   "steps": 99,
-  "test": "test after dependency bump 28/7",
+  "test": "test after dependency updates 1/9, changesets major version",
   "speed": "supertrooperfast",
   "theme": "light"
 }
