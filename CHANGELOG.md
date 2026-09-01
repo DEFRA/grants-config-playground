@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.9
+
+### Patch Changes
+
+- 0db36c0: test post dependency updates, changesets major version
+
 ## 6.8.8
 
 ### Patch Changes
