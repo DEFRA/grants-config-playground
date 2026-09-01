@@ -154,32 +154,32 @@ jobs:
               }
             })
 
-#            await github.rest.pulls.merge({
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              pull_number: releasePR.number,
-#              merge_method: "squash"
-#            });
-#
-#            await github.rest.actions.createWorkflowDispatch({
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              workflow_id: 'publish.yml',
-#              ref: 'main',
-#              headers: {
-#                'X-GitHub-Api-Version': '2022-11-28'
-#              },
-#              inputs: {
-#                run_name: process.env.RELEASE_MSG,
-#                commit_message: process.env.RELEASE_MSG
-#              }
-#            });
-#
-#            await github.rest.git.deleteRef({
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              ref: `heads/${releasePR.head.ref}`
-#            });
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: releasePR.number,
+              merge_method: "squash"
+            });
+
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish.yml',
+              ref: 'main',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              },
+              inputs: {
+                run_name: process.env.RELEASE_MSG,
+                commit_message: process.env.RELEASE_MSG
+              }
+            });
+
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${releasePR.head.ref}`
+            });
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f #8.2.1
