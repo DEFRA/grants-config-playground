@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.11
+
+### Patch Changes
+
+- 2d3639c: test 3, removed mandatory approval from github repo
+
 ## 6.8.10
 
 ### Patch Changes
