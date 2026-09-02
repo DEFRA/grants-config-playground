@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.10
+
+### Patch Changes
+
+- 7e26d9b: test 2, publish workflow updated
+
 ## 6.8.9
 
 ### Patch Changes
