@@ -62,7 +62,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "1.0.0",
     "@changesets/cli": "3.0.1",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.0.0",
     "eslint": "10.7.0",
     "http-status-codes": "2.3.0",
     "husky": "9.1.7",
