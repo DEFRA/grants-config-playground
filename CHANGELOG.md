@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.13
+
+### Patch Changes
+
+- e728d19: another macro change
+
 ## 6.8.12
 
 ### Patch Changes
