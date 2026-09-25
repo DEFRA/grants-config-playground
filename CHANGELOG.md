@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.12
+
+### Patch Changes
+
+- cac303b: checking new validate checks
+
 ## 6.8.11
 
 ### Patch Changes
