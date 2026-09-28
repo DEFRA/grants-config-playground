@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.14
+
+### Patch Changes
+
+- 4de0332: Checking updates did not break release process
+
 ## 6.8.13
 
 ### Patch Changes
