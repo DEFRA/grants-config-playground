@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.15
+
+### Patch Changes
+
+- 90036ef: Changesets need adding for a change to tests
+
 ## 6.8.14
 
 ### Patch Changes
