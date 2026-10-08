@@ -1,6 +1,6 @@
 {
   "name": "grants-config-playground",
-  "version": "6.8.15",
+  "version": "6.8.16",
   "description": "grants-config-playground",
   "main": "src/index.js",
   "type": "module",
