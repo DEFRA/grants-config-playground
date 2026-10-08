@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.16
+
+### Patch Changes
+
+- 6a8a271: testing mechanism again
+
 ## 6.8.15
 
 ### Patch Changes
