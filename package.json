@@ -41,7 +41,7 @@
   "author": "Defra DDTS",
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1149.0",
+    "@aws-sdk/client-s3": "3.1152.0",
     "@defra/cdp-auditing": "0.6.2",
     "@defra/cdp-metrics": "0.6.1",
     "@defra/grants-config-utils": "1.4.0",
