@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.17
+
+### Patch Changes
+
+- 0b90b52: Force change through following node.js upgrade
+
 ## 6.8.16
 
 ### Patch Changes
