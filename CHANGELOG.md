@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.18
+
+### Patch Changes
+
+- abdce56: Change to test flow
+
 ## 6.8.17
 
 ### Patch Changes
