@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.20
+
+### Patch Changes
+
+- b2a1e7e: Trying to setup the package version
+
 ## 6.8.19
 
 ### Patch Changes
