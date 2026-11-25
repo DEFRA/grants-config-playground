@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.19
+
+### Patch Changes
+
+- 871036e: Changes to confirm new flow helper
+
 ## 6.8.18
 
 ### Patch Changes
