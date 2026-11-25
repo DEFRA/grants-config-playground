@@ -75,6 +75,7 @@ jobs:
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ env.CONFIG_VERSION }}
 
       - name: Set user
         run: git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com
