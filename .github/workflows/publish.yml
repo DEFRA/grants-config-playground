@@ -131,93 +131,13 @@ jobs:
       - name: Trigger required checks on release PR, then merge to main, deploy to CDP and delete release branch
         if: ${{ !startsWith(github.event_name == 'push' && github.event.head_commit.message || inputs.commit_message, 'Create new config version') }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #9.0.0
+        env:
+          PR_NUMBER: ${{ steps.changesets.outputs.pr-number }}
+          RELEASE_MSG: ${{ env.RELEASE_MSG }}
         with:
           script: |
-            const prNumber = Number("${{ steps.changesets.outputs.pr-number }}");
-            const { data: releasePR } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-            });
-
-            if (!releasePR) return;
-
-            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-            const requiredChecks = ['validate-changeset-check', 'Run Pull Request Checks'];
-            for (const name of requiredChecks) {
-              await github.rest.checks.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name,
-                head_sha: releasePR.head.sha,
-                status: 'completed',
-                conclusion: 'success',
-                output: {
-                  title: 'Required check triggered',
-                  summary: `Check created for PR #${releasePR.number}`
-                }
-              });
-            }
-
-            // checks.create returns before GitHub re-evaluates the ruleset's
-            // "required checks satisfied" verdict, so an immediate merge races a
-            // stale gate and fails with a ruleset violation. Poll until the PR
-            // is actually mergeable, then merge with backoff.
-            const maxAttempts = 10;
-            let lastError;
-            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-              await sleep(5000 * attempt);
-
-              const { data: pr } = await github.rest.pulls.get({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: releasePR.number,
-              });
-
-              if (pr.merged) { lastError = null; break; }
-              if (pr.mergeable === null) continue;   // still 'unknown', keep polling
-              if (pr.mergeable === false) {
-                core.info(`Attempt ${attempt}: mergeable_state=${pr.mergeable_state}, waiting`);
-                continue;
-              }
-
-              try {
-                await github.rest.pulls.merge({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: releasePR.number,
-                  merge_method: "squash"
-                });
-                lastError = null;
-                break;
-              } catch (err) {
-                lastError = err;
-                if (err.status === 405 && /already merged/i.test(err.message)) { lastError = null; break; }
-                core.info(`Attempt ${attempt}: merge rejected (${err.status}: ${err.message}), retrying`);
-              }
-            }
-            if (lastError) throw lastError;
-
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'publish.yml',
-              ref: 'main',
-              headers: {
-                'X-GitHub-Api-Version': '2022-11-28'
-              },
-              inputs: {
-                run_name: process.env.RELEASE_MSG,
-                commit_message: process.env.RELEASE_MSG
-              }
-            });
-
-            await github.rest.git.deleteRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `heads/${releasePR.head.ref}`
-            });
+            const { mergeReleasePR } = require('@defra/grants-config-utils/release/merge-release-pr')
+            await mergeReleasePR({ github, context, core })
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@59202af334b4ba7b5db01b701b8e79f8b3bef0f4 #8.5.0
