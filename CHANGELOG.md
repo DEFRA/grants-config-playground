@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.8.21
+
+### Patch Changes
+
+- 47c3dc8: Starting the deployment flow
+
 ## 6.8.20
 
 ### Patch Changes
