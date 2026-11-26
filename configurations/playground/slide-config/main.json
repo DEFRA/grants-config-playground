@@ -1,5 +1,5 @@
 {
-  "steps": 99,
+  "steps": 98,
   "test": "test3 after dependency updates 1/9, changesets major version",
   "speed": "superduperultrafast",
   "theme": "light"
