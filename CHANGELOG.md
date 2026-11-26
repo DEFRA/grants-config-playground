@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 6.9.0
+
+### Minor Changes
+
+- 2ec8486: Slides away
+
 ## 6.8.21
 
 ### Patch Changes
