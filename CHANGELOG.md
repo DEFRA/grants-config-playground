@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 7.0.1
+
+### Patch Changes
+
+- f74764e: Changeset to test release
+
 ## 7.0.0
 
 ### Major Changes
