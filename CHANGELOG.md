@@ -1,5 +1,11 @@
 # grants-config-playground
 
+## 7.0.0
+
+### Major Changes
+
+- feb5a29: Playground overhaul. new climbing frame
+
 ## 6.9.0
 
 ### Minor Changes
